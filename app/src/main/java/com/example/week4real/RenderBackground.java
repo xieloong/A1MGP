@@ -31,7 +31,7 @@ public class RenderBackground implements EntityBase{
     @Override
     // For us to intialize or load resource eg: images
     public void Init(SurfaceView _view){
-        bmp = BitmapFactory.decodeResource(_view.getResources(),R.drawable.industrypollution);
+        bmp = BitmapFactory.decodeResource(_view.getResources(),R.drawable.forest);
 
 
         // FInding the screen width & height to allow the images to scale according to it.
