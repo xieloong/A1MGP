@@ -6,7 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.SurfaceView;
 
-// Created by TanSiewLan2021 TEST
+// Created by TanSiewLan2021
 
 public class MainGameSceneState implements StateBase {
     private float timer = 0.0f;
@@ -20,7 +20,6 @@ public class MainGameSceneState implements StateBase {
     public void OnEnter(SurfaceView _view)
     {
         RenderBackground.Create(); //Entity
-        //eg. Player.Create(), NPC.Create();
         // Example to include another Renderview for Pause Button
     }
 

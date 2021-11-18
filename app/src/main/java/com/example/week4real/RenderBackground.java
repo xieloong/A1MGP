@@ -3,6 +3,7 @@ package com.example.week4real;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.SurfaceView;
@@ -11,6 +12,7 @@ public class RenderBackground implements EntityBase{
 
     private boolean isDone = false;
     private Bitmap bmp = null;
+    private Bitmap Player = null;
     private Bitmap Scaledbmp = null; // I am going to scale the bmp based on the screen width and height
     private SurfaceView view = null;
     private float xPos, yPos;
@@ -29,7 +31,8 @@ public class RenderBackground implements EntityBase{
     @Override
     // For us to intialize or load resource eg: images
     public void Init(SurfaceView _view){
-        bmp = BitmapFactory.decodeResource(_view.getResources(),R.drawable.gamescene);
+        bmp = BitmapFactory.decodeResource(_view.getResources(),R.drawable.industrypollution);
+
 
         // FInding the screen width & height to allow the images to scale according to it.
         DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
@@ -39,12 +42,14 @@ public class RenderBackground implements EntityBase{
         Scaledbmp = Bitmap.createScaledBitmap(bmp, ScreenWidth, ScreenHeight, true);
 
 
+        Player = BitmapFactory.decodeResource(_view.getResources(),R.drawable.spritemann);
+
     }
 
     @Override
     public void Update(float _dt){
 
-        xPos -= _dt * 500; // How fast you want to move the screen
+        xPos -= _dt * 100; // How fast you want to move the screen
 
         if (xPos <  -ScreenWidth){
             xPos = 0;
@@ -58,6 +63,11 @@ public class RenderBackground implements EntityBase{
     public void Render(Canvas _canvas){
         _canvas.drawBitmap(Scaledbmp, xPos, yPos, null); //1st image
         _canvas.drawBitmap(Scaledbmp, xPos + ScreenWidth, yPos, null); // 2nd image
+
+        Matrix transform = new Matrix();
+        transform.postRotate((float)Math.toDegrees(30));
+        _canvas.drawBitmap(Player,transform,null);
+        _canvas.drawBitmap(Player,100,800,null);
     }
 
 
