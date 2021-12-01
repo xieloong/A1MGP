@@ -15,6 +15,7 @@ public interface EntityBase
         //ENT_TEXT,
         //ENT_NEXT,
         ENT_PLATFORM,
+        ENT_JUMPBUTTON,
         ENT_DEFAULT,
     }
 

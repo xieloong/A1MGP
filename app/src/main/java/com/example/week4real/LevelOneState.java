@@ -1,26 +1,20 @@
 package com.example.week4real;
 
-import android.app.Activity;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.view.SurfaceView;
 
-// Created by TanSiewLan2021
-
-public class MainGameSceneState implements StateBase {
-    private float timer = 0.0f;
-
+public class LevelOneState implements StateBase{
     @Override
     public String GetName() {
-        return "MainGame";
+        return "LevelOne";
     }
 
     @Override
     public void OnEnter(SurfaceView _view)
     {
         RenderBackground.Create(); //Entity
-        LevelManager.Instance.SetLevel(LevelManager.LevelNo.LEVEL_ONE);
+        Player.Create(100,800);
+        RenderTextEntity.Create();
         // Example to include another Renderview for Pause Button
     }
 
@@ -38,15 +32,6 @@ public class MainGameSceneState implements StateBase {
 
     @Override
     public void Update(float _dt) {
-
         EntityManager.Instance.Update(_dt);
-        if (TouchManager.Instance.IsDown()) {
-			
-            //Example of touch on screen in the main game to trigger back to Main menu
-            StateManager.Instance.ChangeState("Mainmenu");
-        }
     }
 }
-
-
-

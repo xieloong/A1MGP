@@ -31,7 +31,7 @@ public class RenderBackground implements EntityBase{
     @Override
     // For us to intialize or load resource eg: images
     public void Init(SurfaceView _view){
-        bmp = BitmapFactory.decodeResource(_view.getResources(),R.drawable.forest);
+        bmp = ResourceManager.Instance.GetBitmap(R.drawable.forest);
 
 
         // FInding the screen width & height to allow the images to scale according to it.
@@ -41,8 +41,6 @@ public class RenderBackground implements EntityBase{
 
         Scaledbmp = Bitmap.createScaledBitmap(bmp, ScreenWidth, ScreenHeight, true);
 
-
-        Player = BitmapFactory.decodeResource(_view.getResources(),R.drawable.spritemann);
 
     }
 
@@ -55,7 +53,7 @@ public class RenderBackground implements EntityBase{
             xPos = 0;
         }
 
-        Log.i("BACKGROUND", Float.toString(ScreenWidth));
+        //Log.i("BACKGROUND", Float.toString(ScreenWidth));
 
     }
 
@@ -64,10 +62,6 @@ public class RenderBackground implements EntityBase{
         _canvas.drawBitmap(Scaledbmp, xPos, yPos, null); //1st image
         _canvas.drawBitmap(Scaledbmp, xPos + ScreenWidth, yPos, null); // 2nd image
 
-        Matrix transform = new Matrix();
-        transform.postRotate((float)Math.toDegrees(30));
-        _canvas.drawBitmap(Player,transform,null);
-        _canvas.drawBitmap(Player,100,800,null);
     }
 
 

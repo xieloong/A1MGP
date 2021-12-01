@@ -13,6 +13,7 @@ public class EntityManager {
 
     public final static EntityManager Instance = new EntityManager();
     private LinkedList<EntityBase> entityList = new LinkedList<EntityBase>();
+    private LinkedList<EntityBase> DeleteList = new LinkedList<EntityBase>();
     private SurfaceView view = null;
 
     private EntityManager()
@@ -24,16 +25,13 @@ public class EntityManager {
         view = _view;
     }
 
-    public void Update(float _dt)
-    {
+    public void Update(float _dt) {
         LinkedList<EntityBase> removalList = new LinkedList<EntityBase>();
 
         // Update all
-        for(int i = 0; i < entityList.size(); ++i)
-        {
+        for (int i = 0; i < entityList.size(); ++i) {
             // Lets check if is init, initialize if not
-            if (!entityList.get(i).IsInit())
-            {
+            if (!entityList.get(i).IsInit()) {
                 entityList.get(i).Init(view);
             }
 
@@ -46,8 +44,7 @@ public class EntityManager {
             }
         }
 
-        for (EntityBase currEntity : entityList)
-        {
+        for (EntityBase currEntity : entityList) {
             // Lets check if is init, initialize if not
             if (!currEntity.IsInit())
                 currEntity.Init(view);
@@ -68,24 +65,19 @@ public class EntityManager {
         removalList.clear(); // Clean up of removal list
 
         // Collision Check
-        for (int i = 0; i < entityList.size(); ++i)
-        {
+        for (int i = 0; i < entityList.size(); ++i) {
             EntityBase currEntity = entityList.get(i);
 
-            if (currEntity instanceof Collidable)
-            {
+            if (currEntity instanceof Collidable) {
                 Collidable first = (Collidable) currEntity;
 
-                for (int j = i+1; j < entityList.size(); ++j)
-                {
+                for (int j = i + 1; j < entityList.size(); ++j) {
                     EntityBase otherEntity = entityList.get(j);
 
-                    if (otherEntity instanceof Collidable)
-                    {
+                    if (otherEntity instanceof Collidable) {
                         Collidable second = (Collidable) otherEntity;
 
-                        if (Collision.SphereToSphere(first.GetPosX(), first.GetPosY(), first.GetRadius(), second.GetPosX(), second.GetPosY(), second.GetRadius()))
-                        {
+                        if (Collision.SphereToSphere(first.GetPosX(), first.GetPosY(), first.GetRadius(), second.GetPosX(), second.GetPosY(), second.GetRadius())) {
                             first.OnHit(second);
                             second.OnHit(first);
                         }
@@ -127,6 +119,22 @@ public class EntityManager {
     {
         entityList.add(_newEntity);
     }
+
+//    public void DeleteEntity(EntityBase _newEntity, EntityBase.ENTITY_TYPE entity_type)
+//    {
+//        // Check Delete List with entityList
+//        // Remove for entitylist if they are the same
+//        // Delete the entity
+//        DeleteList.add(_newEntity);
+//        for(int i = 0; i < entityList.size(); ++i)
+//        {
+//            if(entityList.get(i) == _newEntity)
+//            {
+//                entityList.remove(_newEntity);
+//            }
+//        }
+//        _newEntity = null;
+//    }
 
     public void Clean()
     {

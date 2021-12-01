@@ -3,16 +3,22 @@ package com.example.week4real;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.util.DisplayMetrics;
 import android.view.SurfaceView;
 
-public class platform implements EntityBase{
+public class Platform implements EntityBase{
 
     private Bitmap bmp = null;
     private boolean isDone = false;
     private float xPos,yPos;
     private boolean isInit = false;
     private boolean hasTouched = false;
-    private int renderLayer = 0;
+    public int ScreenWidth, ScreenHeight;
+    public float EndPositionX,EndPositionY;
+    Platform(float xPosition, float yPosition){
+        xPos = xPosition;
+        yPos = yPosition;
+    }
 
     @Override
     public boolean IsDone() {
@@ -24,15 +30,24 @@ public class platform implements EntityBase{
     }
     @Override
     public void Init(SurfaceView _view) {
-        bmp = BitmapFactory.decodeResource(_view.getResources(),R.mipmap.ic_launcher_round);
+        bmp = ResourceManager.Instance.GetBitmap(R.drawable.platform);
+        DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
+        ScreenWidth = metrics.widthPixels;
+        ScreenHeight = metrics.heightPixels;
+        EndPositionX = xPos;
+        EndPositionY = yPos;
         isInit = true;
     }
     @Override
      public void Update(float _dt) {
-        return;
+        xPos -= _dt * 100;
+
+
     }
     @Override
     public void Render(Canvas _canvas){
+        // Basic Rendering
+        _canvas.drawBitmap(bmp, xPos, yPos ,null);
         return;
     }
     @Override
@@ -41,24 +56,25 @@ public class platform implements EntityBase{
     }
     @Override
     public int GetRenderLayer(){
-        return renderLayer;
+        return LayerConstants.GAMEOBJECTS_LAYER;
     }
     @Override
     public void SetRenderLayer(int _newLayer){
-        renderLayer = _newLayer;
+        return;
     }
 
-    public static platform Create(){
-        platform object = new platform();
+    public static Platform Create(float xPosition, float yPosition){
+        Platform object = new Platform(xPosition,yPosition);
         EntityManager.Instance.AddEntity(object,ENTITY_TYPE.ENT_PLATFORM);
         return object;
     }
-
-    public static platform Create(int _layer){
-        platform object = Create();
+/*
+    public static Platform Create(int _layer,float xPosition, float yPosition){
+        Platform object = Create(xPosition,yPosition);
         object.SetRenderLayer(_layer);
         return object;
     }
+*/
 
 
     @Override
