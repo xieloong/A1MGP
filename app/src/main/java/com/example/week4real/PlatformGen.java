@@ -11,11 +11,13 @@ public class PlatformGen{
     public final static PlatformGen Instance = new PlatformGen();
     private SurfaceView view = null;
     public int ScreenWidth, ScreenHeight;
-    Platform newPlatform = null;
+    Platform newPlatform;
     float newPositionY;
     float UpdatePositionY;
     boolean isValid = true;
-
+    Player player = null;
+    boolean isInit = false;
+    private final float PLAYER_DISTANCE_SPAWN_LEVEL_PART = 1000.f;
     private enum PlatformPart{
         PLATFORM_PART_ONE,
         PLATFORM_PART_TWO,
@@ -23,16 +25,26 @@ public class PlatformGen{
     }
 
 
-    private PlatformGen()
-    {
-        newPlatform = Platform.Create(100,400);
+    private PlatformGen() {
+        newPlatform = Platform.Create(200,400);
     }
 
+    public void InitialisePlatforms()
+    {
+        if(!isInit)
+        {
+            int startingSpawnLevelParts = 5;
+            for(int i = 0; i < startingSpawnLevelParts; i++){
+                CreatePlatform();
+            }
+            isInit = true;
+        }
+    }
 
     public void Init(SurfaceView _view)
     {
         view = _view;
-        // FInding the screen width & height to allow the images to scale according to it.
+        // Finding the screen width & height to allow the images to scale according to it.
         DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
         ScreenWidth = metrics.widthPixels;
         ScreenHeight = metrics.heightPixels;
@@ -40,7 +52,14 @@ public class PlatformGen{
 
     public void Update()
     {
-        CreatePlatform();
+        if(player != null)
+        {
+            if((newPlatform.GetPositionX() - player.GetPositionX()) < PLAYER_DISTANCE_SPAWN_LEVEL_PART)
+            {
+                // Spawn Another Level Part
+                CreatePlatform();
+            }
+        }
     }
 
     public void CreatePlatform() {
@@ -51,13 +70,13 @@ public class PlatformGen{
 
         switch (rand_int) {
             case 0:
-                newPositionY = newPlatform.EndPositionY;
+                newPositionY = newPlatform.GetPositionY();
                 break;
             case 1:
-                newPositionY = newPlatform.EndPositionY - 200;
+                newPositionY = newPlatform.GetPositionY() - 200;
                 break;
             case 2:
-                newPositionY = newPlatform.EndPositionY + 200;
+                newPositionY = newPlatform.GetPositionY() + 200;
                 break;
             default:
                 break;
@@ -69,20 +88,24 @@ public class PlatformGen{
             CreatePlatform();
         }
         else{
-            UpdatePositionY = newPositionY;
-            newPlatform = Platform.Create(newPlatform.EndPositionX + 500,UpdatePositionY);
-            Log.i("newPositionY: ", Float.toString(UpdatePositionY));
+
+            newPlatform = Platform.Create(newPlatform.GetPositionX() + 800,newPositionY);
+//            Log.i("newPositionY: ", Float.toString(UpdatePositionY));
         }
 
     }
     public boolean isValid(float newPositionY) {
-        if (newPositionY >= ScreenHeight - 200 || newPositionY <= -ScreenHeight + 200) {
+        if (newPositionY >= ScreenHeight - 200 || newPositionY <= 100) {
             isValid = false;
         }
         else {
             isValid = true;
         }
         return isValid;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 }
 

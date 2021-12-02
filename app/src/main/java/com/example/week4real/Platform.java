@@ -14,7 +14,6 @@ public class Platform implements EntityBase{
     private boolean isInit = false;
     private boolean hasTouched = false;
     public int ScreenWidth, ScreenHeight;
-    public float EndPositionX,EndPositionY;
     Platform(float xPosition, float yPosition){
         xPos = xPosition;
         yPos = yPosition;
@@ -34,15 +33,17 @@ public class Platform implements EntityBase{
         DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
         ScreenWidth = metrics.widthPixels;
         ScreenHeight = metrics.heightPixels;
-        EndPositionX = xPos;
-        EndPositionY = yPos;
         isInit = true;
     }
     @Override
      public void Update(float _dt) {
         xPos -= _dt * 100;
 
-
+        // Delete Platform outside of screen
+        if(xPos < -ScreenWidth)
+        {
+            isDone = true;
+        }
     }
     @Override
     public void Render(Canvas _canvas){
@@ -75,7 +76,15 @@ public class Platform implements EntityBase{
         return object;
     }
 */
+    @Override
+    public float GetPositionX(){
+        return xPos;
+    }
 
+    @Override
+    public float GetPositionY(){
+        return yPos;
+    }
 
     @Override
     public ENTITY_TYPE GetEntityType(){

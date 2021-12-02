@@ -6,6 +6,7 @@ import android.view.SurfaceView;
 public class LevelManager {
 
     public final static LevelManager Instance = new LevelManager();
+
     private SurfaceView view = null;
     LevelNo Level = LevelNo.LEVEL_NONE;
     boolean LEVEL_ONE_INITIALISED = false;
@@ -34,6 +35,7 @@ public class LevelManager {
         {
             case LEVEL_ONE:
                     StateManager.Instance.ChangeState("LevelOne"); // Default is like a loading page
+                    PlatformGen.Instance.InitialisePlatforms();
                     PlatformGen.Instance.Update();
                 break;
             case LEVEL_TWO:

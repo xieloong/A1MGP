@@ -1,6 +1,8 @@
 package com.example.week4real;
 
 import android.graphics.Canvas;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.SurfaceView;
 
 import java.util.Collections;
@@ -96,6 +98,7 @@ public class EntityManager {
             entityList.remove(currEntity);
         }
         removalList.clear();
+
     }
 
     public void Render(Canvas _canvas)
@@ -120,21 +123,6 @@ public class EntityManager {
         entityList.add(_newEntity);
     }
 
-//    public void DeleteEntity(EntityBase _newEntity, EntityBase.ENTITY_TYPE entity_type)
-//    {
-//        // Check Delete List with entityList
-//        // Remove for entitylist if they are the same
-//        // Delete the entity
-//        DeleteList.add(_newEntity);
-//        for(int i = 0; i < entityList.size(); ++i)
-//        {
-//            if(entityList.get(i) == _newEntity)
-//            {
-//                entityList.remove(_newEntity);
-//            }
-//        }
-//        _newEntity = null;
-//    }
 
     public void Clean()
     {

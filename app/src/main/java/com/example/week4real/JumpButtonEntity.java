@@ -65,7 +65,7 @@ public class JumpButtonEntity implements EntityBase{
 
     public static JumpButtonEntity Create(float xPosition, float yPosition){
         JumpButtonEntity object = new JumpButtonEntity(xPosition,yPosition);
-        EntityManager.Instance.AddEntity(object,ENTITY_TYPE.ENT_PLATFORM);
+        EntityManager.Instance.AddEntity(object,ENTITY_TYPE.ENT_JUMPBUTTON);
         return object;
     }
 
@@ -73,5 +73,14 @@ public class JumpButtonEntity implements EntityBase{
         JumpButtonEntity object = Create(xPosition,yPosition);
         object.SetRenderLayer(_layer);
         return object;
+    }
+    @Override
+    public float GetPositionX(){
+        return 0;
+    }
+
+    @Override
+    public float GetPositionY(){
+        return 0;
     }
 }

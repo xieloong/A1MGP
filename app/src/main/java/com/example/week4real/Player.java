@@ -80,7 +80,7 @@ public class Player implements EntityBase{
 
     public static Player Create(float xPosition, float yPosition){
         Player object = new Player(xPosition,yPosition);
-        EntityManager.Instance.AddEntity(object,ENTITY_TYPE.ENT_PLATFORM);
+        EntityManager.Instance.AddEntity(object,ENTITY_TYPE.ENT_PLAYER);
         return object;
     }
 
@@ -93,5 +93,15 @@ public class Player implements EntityBase{
     @Override
     public ENTITY_TYPE GetEntityType(){
         return ENTITY_TYPE.ENT_PLAYER;
+    }
+
+    @Override
+    public float GetPositionX(){
+        return xPos;
+    }
+
+    @Override
+    public float GetPositionY(){
+        return yPos;
     }
 }

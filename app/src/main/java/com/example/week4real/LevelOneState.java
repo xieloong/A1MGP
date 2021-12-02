@@ -1,9 +1,14 @@
 package com.example.week4real;
 
 import android.graphics.Canvas;
+import android.util.DisplayMetrics;
 import android.view.SurfaceView;
 
 public class LevelOneState implements StateBase{
+
+    Player player;
+
+
     @Override
     public String GetName() {
         return "LevelOne";
@@ -12,9 +17,14 @@ public class LevelOneState implements StateBase{
     @Override
     public void OnEnter(SurfaceView _view)
     {
+        DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
+        int ScreenWidth = metrics.widthPixels;
+        int ScreenHeight = metrics.heightPixels;
         RenderBackground.Create(); //Entity
-        Player.Create(100,800);
+        player = Player.Create(100,800);
+        PlatformGen.Instance.setPlayer(player);
         RenderTextEntity.Create();
+        //EarthEntity.Create(_view.getContext(),ScreenWidth/2,20);
         // Example to include another Renderview for Pause Button
     }
 
