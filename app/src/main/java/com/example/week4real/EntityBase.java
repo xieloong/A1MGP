@@ -17,6 +17,7 @@ public interface EntityBase
         ENT_HEALTHBAR,
         ENT_PLATFORM,
         ENT_JUMPBUTTON,
+         ENT_TEXT,
         ENT_DEFAULT,
     }
 
