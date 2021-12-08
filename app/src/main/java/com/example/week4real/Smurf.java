@@ -67,13 +67,16 @@ public class Smurf implements EntityBase {
     @Override
     public void Update(float _dt) {
         // Week 8
+
+        if (GameSystem.Instance.GetIsPaused())
+            return;
+
         spritesmurf.Update(_dt);
 
 //        lifetime -= _dt;
 //        if (lifetime < 0.0f) {
 //            SetIsDone(true);   // <--- This part here or this code, meant when time is up, kill the items.
 //        }
-
         if (TouchManager.Instance.IsDown())
         {   // Previous and it is for just a touch - useful for collision with a image (example button)
             IsGoingUp = true;
@@ -103,7 +106,6 @@ public class Smurf implements EntityBase {
         {
             yPos = 0.7f * ScreenHeight;
         }
-
 //        if (TouchManager.Instance.HasTouch())  // Touch and drag
 //        {
 //            // Check collision with the smurf sprite

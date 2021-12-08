@@ -12,7 +12,7 @@
         android:layout_height="50dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="186dp"
+        android:layout_marginTop="193dp"
         android:layout_marginRight="291dp"
         android:background="@drawable/button"
         android:text="Start"
@@ -25,10 +25,23 @@
         android:layout_height="50dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="277dp"
+        android:layout_marginTop="330dp"
         android:layout_marginRight="291dp"
         android:background="@drawable/back"
         android:text="Back"
+        android:textColor="#bdfcf2"
+        android:textSize="18dp" />
+
+    <Button
+        android:id="@+id/btn_option"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="258dp"
+        android:layout_marginRight="293dp"
+        android:background="@drawable/back"
+        android:text="Options"
         android:textColor="#bdfcf2"
         android:textSize="18dp" />
 

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:background="@drawable/industrypollution">
+
+
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="110dp"
+        android:layout_height="56dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="198dp"
+        android:layout_marginRight="303dp"></Switch>
+
+    <Button
+        android:id="@+id/btn_back"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="302dp"
+        android:layout_marginRight="313dp"
+        android:background="@drawable/back"
+        android:text="Back"
+        android:textColor="#bdfcf2"
+        android:textSize="18dp" />
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="196dp"
+        android:layout_height="41dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="209dp"
+        android:layout_marginRight="332dp"
+        android:text="Toggle music: off"
+        android:textColor="@color/cardview_light_background"
+        android:textSize="20sp"></TextView>
+
+</RelativeLayout>
