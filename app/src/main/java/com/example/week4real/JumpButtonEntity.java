@@ -74,13 +74,5 @@ public class JumpButtonEntity implements EntityBase{
         object.SetRenderLayer(_layer);
         return object;
     }
-    @Override
-    public float GetPositionX(){
-        return 0;
-    }
 
-    @Override
-    public float GetPositionY(){
-        return 0;
-    }
 }

@@ -9,16 +9,16 @@ public class EarthEntity implements EntityBase{
     private Bitmap bmp = null;
     private Bitmap Scaledbmp = null;
     private boolean isDone = false;
-    private float xPos,yPos;
+    public float xPos,yPos;
     private boolean isInit = false;
     private boolean hasTouched = false;
     public static final int MAX_HEALTH_POINTS = 10;
     private Healthbar healthbar;
     private int healthPoints;
-    public EarthEntity(Context context,float xPos, float yPos){
+    public EarthEntity(float xPos, float yPos){
         this.xPos = xPos;
         this.yPos = yPos;
-        this.healthbar = Healthbar.Create(context,this);
+        this.healthbar = Healthbar.Create(this);
         this.healthPoints = MAX_HEALTH_POINTS;
     }
 
@@ -35,6 +35,7 @@ public class EarthEntity implements EntityBase{
     @Override
     public void Init(SurfaceView _view) {
         bmp = ResourceManager.Instance.GetBitmap(R.drawable.earth);
+        isInit = true;
     }
     @Override
     public void Update(float _dt) {
@@ -58,8 +59,8 @@ public class EarthEntity implements EntityBase{
         return;
     }
 
-    public static EarthEntity Create(Context context, float xPos, float yPos){
-        EarthEntity object = new EarthEntity(context,xPos,yPos);
+    public static EarthEntity Create(float xPos, float yPos){
+        EarthEntity object = new EarthEntity(xPos,yPos);
         EntityManager.Instance.AddEntity(object, EntityBase.ENTITY_TYPE.ENT_EARTH);
         return object;
     }
@@ -71,15 +72,6 @@ public class EarthEntity implements EntityBase{
         return ENTITY_TYPE.ENT_EARTH;
     }
 
-    @Override
-    public float GetPositionX(){
-        return xPos;
-    }
-
-    @Override
-    public float GetPositionY(){
-        return yPos;
-    }
 
     public int GetHealthPoints() {
         return healthPoints;

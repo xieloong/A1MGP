@@ -17,6 +17,7 @@ public interface EntityBase
         ENT_HEALTHBAR,
         ENT_PLATFORM,
         ENT_JUMPBUTTON,
+        ENT_PAUSEBUTTON,
         ENT_DEFAULT,
     }
 
@@ -32,7 +33,5 @@ public interface EntityBase
     int GetRenderLayer();
     void SetRenderLayer(int _newLayer);
 
-    float GetPositionX();
-    float GetPositionY();
 	ENTITY_TYPE GetEntityType();
 }

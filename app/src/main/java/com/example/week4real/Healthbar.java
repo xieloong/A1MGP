@@ -3,6 +3,7 @@ package com.example.week4real;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.SurfaceView;
 
@@ -18,14 +19,14 @@ public class Healthbar implements EntityBase{
     private EarthEntity earthEntity;
     private int width,height,margin;
     private Paint borderPaint;
-    public Healthbar(Context context, EarthEntity earthEntity){
+    public Healthbar( EarthEntity earthEntity){
         this.earthEntity = earthEntity;
         this.width = 100;
-        this.height = 50;
+        this.height = 150;
         this.margin = 2;
         this.borderPaint = new Paint();
-        int borderColor = ContextCompat.getColor(context,R.color.purple_200);
-        borderPaint.setColor(borderColor);
+        borderPaint.setColor(Color.GRAY);
+        borderPaint.setStyle(Paint.Style.FILL);
 
     }
 
@@ -51,25 +52,31 @@ public class Healthbar implements EntityBase{
     }
     @Override
     public void Render(Canvas _canvas){
+        if(earthEntity.IsInit())
+        {
+            float x = earthEntity.xPos;
+            float y = earthEntity.yPos;
+            float distanceToEarth = 200.f;
+            float healthPointPercentage = (float)earthEntity.GetHealthPoints() / earthEntity.MAX_HEALTH_POINTS;
 
+
+            // Draw Border
+            float borderleft,borderTop,borderRight,borderBottom;
+            borderleft = x + distanceToEarth;
+            borderRight = borderleft + width;
+//            borderBottom =
+//            borderTop =
+
+//            _canvas.drawRect(borderleft,borderTop,borderRight,borderBottom,borderPaint);
+        }
         // 1/12/2021  Fix HealthBar Position and Continues HealthBar
-        float x = earthEntity.GetPositionX();
-        float y = earthEntity.GetPositionY();
-        float distanceToEarth = 300;
-        float healthPointPercentage = (float)earthEntity.GetHealthPoints() / earthEntity.MAX_HEALTH_POINTS;
 
 
-        // Draw Border
-        float borderleft,borderTop,borderRight,borderBottom;
-        borderleft = x + distanceToEarth;
-        borderRight = borderleft + width;
-        borderBottom = y + height;
-        borderTop = y - 50;
+         //Draw Health_canvas.drawRect(healthLeft,healthTop,healthRight,healthBottom,healthPaint);
 
-        _canvas.drawRect(borderleft,borderTop,borderRight,borderBottom,borderPaint);
 
-        // Draw Health
-//        _canvas.drawRect(healthLeft,healthTop,healthRight,healthBottom,healthPaint);
+
+
     }
     @Override
     public boolean IsInit(){
@@ -84,8 +91,8 @@ public class Healthbar implements EntityBase{
         return;
     }
 
-    public static Healthbar Create(Context context,EarthEntity earthEntity){
-        Healthbar object = new Healthbar(context,earthEntity);
+    public static Healthbar Create(EarthEntity earthEntity){
+        Healthbar object = new Healthbar(earthEntity);
         EntityManager.Instance.AddEntity(object,ENTITY_TYPE.ENT_HEALTHBAR);
         return object;
     }
@@ -96,13 +103,5 @@ public class Healthbar implements EntityBase{
         return ENTITY_TYPE.ENT_HEALTHBAR;
     }
 
-    @Override
-    public float GetPositionX(){
-        return 0;
-    }
 
-    @Override
-    public float GetPositionY(){
-        return 0;
-    }
 }

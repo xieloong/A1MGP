@@ -9,16 +9,16 @@ import java.util.Random;
 import java.util.Set;
 
 
-public class Player implements EntityBase{
+public class Player implements EntityBase, Collidable{
 
     private Bitmap bmp = null;
     private boolean isDone = false;
     private float xPos,yPos;
     private boolean isInit = false;
-    private boolean hasTouched = false;
-    private float lifetime;
+    private boolean hasTouched = false; // To detect
+    private float lifetime; // Life of the Player
 
-
+    private Sprite playerSprite = null;
     Player(float xPosition, float yPosition){
         xPos = xPosition;
         yPos = yPosition;
@@ -34,7 +34,11 @@ public class Player implements EntityBase{
     }
     @Override
     public void Init(SurfaceView _view) {
-        bmp = ResourceManager.Instance.GetBitmap(R.drawable.spritemann);
+        bmp = ResourceManager.Instance.GetBitmap(R.drawable.smurf_sprite);
+
+        // Row , Col , NoOfAnimationsFrame = Row x Col
+        playerSprite = new Sprite(bmp,4,4,16);
+
         isInit = true;
 
         // Define how we want the player to react or if it is enemy or obstacles, how it is going to appear as
@@ -48,21 +52,39 @@ public class Player implements EntityBase{
     @Override
     public void Update(float _dt) {
 
-        if(TouchManager.Instance.IsDown()){
-            // Check Collision
-            float imgRadius = bmp.getHeight() * 0.5f;
-            if (Collision.SphereToSphere(TouchManager.Instance.GetPosX(),TouchManager.Instance.GetPosY(),0.0f,xPos,yPos,imgRadius))
+        if(GameSystem.Instance.GetIsPaused())
+            return;
+        // Sprite Animation Update
+        playerSprite.Update(_dt);
+
+        if (TouchManager.Instance.HasTouch())  // Touch and drag
+        {
+            // Check collision with the smurf sprite
+            float imgRadius1 = playerSprite.GetWidth() * 0.5f;
+            if (Collision.SphereToSphere(TouchManager.Instance.GetPosX(), TouchManager.Instance.GetPosY(), 0.0f, xPos,yPos, imgRadius1) || hasTouched)
             {
-                SetIsDone(true);
+                hasTouched = true;
+                xPos = TouchManager.Instance.GetPosX();
+                yPos = TouchManager.Instance.GetPosY();
+
             }
         }
-
+//        if(TouchManager.Instance.HasTouch()){
+//            // Check Collision
+//            float imgRadius = bmp.getHeight() * 0.5f;
+//            if (Collision.SphereToSphere(TouchManager.Instance.GetPosX(),TouchManager.Instance.GetPosY(),0.0f,xPos,yPos,imgRadius))
+//            {
+//                xPos =  (int)TouchManager.Instance.GetPosX();
+//                yPos =  (int)TouchManager.Instance.GetPosY();
+//            }
+//        }
 
     }
     @Override
     public void Render(Canvas _canvas){
         // Basic Rendering
-        _canvas.drawBitmap(bmp, xPos, yPos ,null);
+       // _canvas.drawBitmap(bmp, xPos, yPos ,null);
+        playerSprite.Render(_canvas,(int)xPos,(int)yPos);
 
     }
     @Override
@@ -95,13 +117,35 @@ public class Player implements EntityBase{
         return ENTITY_TYPE.ENT_PLAYER;
     }
 
+
     @Override
-    public float GetPositionX(){
+    public String GetType() {
+        return "PlayerEntity";
+    }
+
+    @Override
+    public float GetPosX() {
         return xPos;
     }
 
     @Override
-    public float GetPositionY(){
+    public float GetPosY() {
         return yPos;
     }
+
+
+    @Override
+    public float GetRadius() {
+        return bmp.getWidth();
+    }
+
+    @Override
+    public void OnHit(Collidable _other) {
+//        if(_other.GetType() != this.GetType()
+//                && _other.GetType() !=  "SmurfEntity") {  // Another entity
+//            SetIsDone(true);
+//        }
+    }
+
+
 }

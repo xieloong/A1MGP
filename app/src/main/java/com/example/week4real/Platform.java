@@ -6,7 +6,9 @@ import android.graphics.Canvas;
 import android.util.DisplayMetrics;
 import android.view.SurfaceView;
 
-public class Platform implements EntityBase{
+import java.util.Set;
+
+public class Platform implements EntityBase, Collidable{
 
     private Bitmap bmp = null;
     private boolean isDone = false;
@@ -37,12 +39,16 @@ public class Platform implements EntityBase{
     }
     @Override
      public void Update(float _dt) {
+
+        if(GameSystem.Instance.GetIsPaused())
+            return;
+
         xPos -= _dt * 100;
 
         // Delete Platform outside of screen
         if(xPos < -ScreenWidth)
         {
-            isDone = true;
+            SetIsDone(true);
         }
     }
     @Override
@@ -76,18 +82,38 @@ public class Platform implements EntityBase{
         return object;
     }
 */
+
+
     @Override
-    public float GetPositionX(){
-        return xPos;
+    public String GetType() {
+        return "Platform";
     }
 
     @Override
-    public float GetPositionY(){
+    public float GetPosX() {
+    return xPos;
+}
+
+    @Override
+    public float GetPosY() {
         return yPos;
     }
 
+
+    @Override
+    public float GetRadius() {
+        return bmp.getWidth();
+    }
     @Override
     public ENTITY_TYPE GetEntityType(){
         return ENTITY_TYPE.ENT_PLATFORM;
+    }
+
+    @Override
+    public void OnHit(Collidable _other) {
+//        if(_other.GetType() != this.GetType()
+//                && _other.GetType() !=  "SmurfEntity") {  // Another entity
+//            SetIsDone(true);
+//        }
     }
 }

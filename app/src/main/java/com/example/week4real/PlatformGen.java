@@ -17,6 +17,7 @@ public class PlatformGen{
     boolean isValid = true;
     Player player = null;
     boolean isInit = false;
+    private final float PLATFORM_HEIGHT = 200.f;
     private final float PLAYER_DISTANCE_SPAWN_LEVEL_PART = 1000.f;
     private enum PlatformPart{
         PLATFORM_PART_ONE,
@@ -52,9 +53,12 @@ public class PlatformGen{
 
     public void Update()
     {
+        if(GameSystem.Instance.GetIsPaused())
+            return;
+
         if(player != null)
         {
-            if((newPlatform.GetPositionX() - player.GetPositionX()) < PLAYER_DISTANCE_SPAWN_LEVEL_PART)
+            if((newPlatform.GetPosX() - player.GetPosX()) < PLAYER_DISTANCE_SPAWN_LEVEL_PART)
             {
                 // Spawn Another Level Part
                 CreatePlatform();
@@ -70,13 +74,13 @@ public class PlatformGen{
 
         switch (rand_int) {
             case 0:
-                newPositionY = newPlatform.GetPositionY();
+                newPositionY = newPlatform.GetPosY() - PLATFORM_HEIGHT;
                 break;
             case 1:
-                newPositionY = newPlatform.GetPositionY() - 200;
+                newPositionY = newPlatform.GetPosY();
                 break;
             case 2:
-                newPositionY = newPlatform.GetPositionY() + 200;
+                newPositionY = newPlatform.GetPosY() + PLATFORM_HEIGHT;
                 break;
             default:
                 break;
@@ -89,7 +93,7 @@ public class PlatformGen{
         }
         else{
 
-            newPlatform = Platform.Create(newPlatform.GetPositionX() + 800,newPositionY);
+            newPlatform = Platform.Create(newPlatform.GetPosX() + 800,newPositionY);
 //            Log.i("newPositionY: ", Float.toString(UpdatePositionY));
         }
 
