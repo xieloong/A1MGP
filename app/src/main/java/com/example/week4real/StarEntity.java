@@ -84,7 +84,7 @@ public class StarEntity implements EntityBase, Collidable{
 
     @Override
     public int GetRenderLayer() {
-        return LayerConstants.STAR_LAYER;
+        return LayerConstants.UI_LAYER;
     }
 
     @Override
@@ -92,15 +92,7 @@ public class StarEntity implements EntityBase, Collidable{
         return;
     }
 
-    @Override
-    public float GetPositionX() {
-        return 0;
-    }
 
-    @Override
-    public float GetPositionY() {
-        return 0;
-    }
 
     @Override
     public ENTITY_TYPE GetEntityType(){ return ENTITY_TYPE.ENT_DEFAULT;}

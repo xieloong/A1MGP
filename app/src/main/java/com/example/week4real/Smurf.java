@@ -149,15 +149,7 @@ public class Smurf implements EntityBase {
 
     }
 
-    @Override
-    public float GetPositionX() {
-        return xPos;
-    }
 
-    @Override
-    public float GetPositionY() {
-        return yPos;
-    }
 
     @Override
     public ENTITY_TYPE GetEntityType() {

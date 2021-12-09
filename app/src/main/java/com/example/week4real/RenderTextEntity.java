@@ -94,15 +94,7 @@ public class RenderTextEntity implements EntityBase{
             return;
         }
 
-    @Override
-    public float GetPositionX() {
-        return 0;
-    }
 
-    @Override
-    public float GetPositionY() {
-        return 0;
-    }
 
     @Override
         public ENTITY_TYPE GetEntityType(){ return ENTITY_TYPE.ENT_TEXT;}

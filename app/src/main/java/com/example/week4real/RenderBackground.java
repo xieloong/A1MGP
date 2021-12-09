@@ -93,13 +93,5 @@ public class RenderBackground implements EntityBase{
         EntityManager.Instance.AddEntity(result, ENTITY_TYPE.ENT_DEFAULT);
         return result;
     }
-    @Override
-    public float GetPositionX(){
-        return 0;
-    }
 
-    @Override
-    public float GetPositionY(){
-        return 0;
-    }
 }

@@ -96,22 +96,12 @@ public class PausebuttonEntity implements EntityBase{
 
     @Override
     public int GetRenderLayer() {
-        return LayerConstants.PAUSEBUTTON_LAYER;
+        return LayerConstants.UI_LAYER;
     }
 
     @Override
     public void SetRenderLayer(int _newLayer) {
 
-    }
-
-    @Override
-    public float GetPositionX() {
-        return 0;
-    }
-
-    @Override
-    public float GetPositionY() {
-        return 0;
     }
 
     @Override

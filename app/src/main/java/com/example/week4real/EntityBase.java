@@ -33,7 +33,5 @@ public interface EntityBase
     int GetRenderLayer();
     void SetRenderLayer(int _newLayer);
 
-    float GetPositionX();
-    float GetPositionY();
 	ENTITY_TYPE GetEntityType();
 }

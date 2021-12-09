@@ -65,15 +65,7 @@ public class Ship implements EntityBase {
 
     }
 
-    @Override
-    public float GetPositionX() {
-        return 0;
-    }
 
-    @Override
-    public float GetPositionY() {
-        return 0;
-    }
 
     @Override
     public ENTITY_TYPE GetEntityType() {

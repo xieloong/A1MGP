@@ -93,7 +93,7 @@ public class Player implements EntityBase, Collidable{
     }
     @Override
     public int GetRenderLayer(){
-        return LayerConstants.SMURF_LAYER;
+        return LayerConstants.PLAYER_LAYER;
     }
     @Override
     public void SetRenderLayer(int _newLayer){
