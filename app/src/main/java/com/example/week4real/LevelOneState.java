@@ -27,7 +27,7 @@ public class LevelOneState implements StateBase{
         PausebuttonEntity.Create();
         RenderTextEntity.Create();
         EarthEntity.Create(ScreenWidth/2,20);
-        // Example to include another Renderview for Pause Button
+        // Example to include another Renderview for Pause Button //test for push
     }
 
     @Override
