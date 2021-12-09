@@ -12,6 +12,9 @@ public class Sprite {
     private int width = 0;
     private int height = 0;
 
+    private int ingamewidth = 300;
+    private int ingameheight = 300;
+
     private Bitmap bmp = null;
 
     private int currentFrame = 0;
@@ -58,7 +61,7 @@ public class Sprite {
         _y -= 0.5f * height;
 
         Rect src = new Rect(srcX, srcY, srcX + width, srcY + height);
-        Rect dst = new Rect(_x, _y, _x + width, _y + height);
+        Rect dst = new Rect(_x, _y, _x + ingamewidth, _y + ingameheight);
         _canvas.drawBitmap(bmp, src, dst, null);
     }
 

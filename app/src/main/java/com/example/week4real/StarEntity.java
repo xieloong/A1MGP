@@ -93,6 +93,16 @@ public class StarEntity implements EntityBase, Collidable{
     }
 
     @Override
+    public float GetPositionX() {
+        return 0;
+    }
+
+    @Override
+    public float GetPositionY() {
+        return 0;
+    }
+
+    @Override
     public ENTITY_TYPE GetEntityType(){ return ENTITY_TYPE.ENT_DEFAULT;}
 
     public static StarEntity Create()
@@ -116,7 +126,6 @@ public class StarEntity implements EntityBase, Collidable{
     public float GetPosY() {
         return yPos;
     }
-
 
     @Override
     public float GetRadius() {

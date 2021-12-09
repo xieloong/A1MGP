@@ -1,11 +1,15 @@
 package com.example.week4real;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.SurfaceView;
 
 public class PausebuttonEntity implements EntityBase{
+
+
     private boolean isDone = false;
 
     private Bitmap bmpP = null;
@@ -23,22 +27,25 @@ public class PausebuttonEntity implements EntityBase{
     private float buttonDelay = 0;
 
 
+    //check if anything to do with entity (use for pause)
     @Override
-    public boolean IsDone(){
+    public boolean IsDone() {
         return isDone;
     }
 
     @Override
-    public void SetIsDone(boolean _isDone){
-        isDone = _isDone;
+    public void SetIsDone(boolean _isDone) {
+        isDone=_isDone;
+
     }
 
     @Override
-    public void Init(SurfaceView _view){
-        bmpP = ResourceManager.Instance.GetBitmap(R.drawable.pause);
-        bmpUP = ResourceManager.Instance.GetBitmap((R.drawable.pause1));
+    public void Init(SurfaceView _view) {
 
-        DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
+        bmpP = BitmapFactory.decodeResource(_view.getResources(),R.drawable.pause);
+        bmpUP = BitmapFactory.decodeResource(_view.getResources(),R.drawable.pause1);
+
+        DisplayMetrics metrics=_view.getResources().getDisplayMetrics();
         ScreenHeight = metrics.heightPixels;
         ScreenWidth = metrics.widthPixels;
 
@@ -47,63 +54,74 @@ public class PausebuttonEntity implements EntityBase{
 
         xPos = ScreenWidth - 100;
         yPos = 150;
+
         isInit = true;
     }
 
     @Override
-    public void Update(float _dt){
+    public void Update(float _dt) {
         buttonDelay += _dt;
 
-        if(TouchManager.Instance.HasTouch())
+        if (TouchManager.Instance.HasTouch())
         {
-            // Check for Collision
-            if(TouchManager.Instance.IsDown() && !Paused){
-                float imgRadius = scaledbmpP.getHeight();
-                if(Collision.SphereToSphere(TouchManager.Instance.GetPosX(), TouchManager.Instance.GetPosY(), 0.0f,xPos,yPos,imgRadius))
+            if (TouchManager.Instance.IsDown()) {  // Check for collision
+                float imgRadius1 = scaledbmpP.getHeight() * 0.5f;
+                if (Collision.SphereToSphere(TouchManager.Instance.GetPosX(), TouchManager.Instance.GetPosY(), 0.0f, xPos,yPos, imgRadius1)  && buttonDelay >= 0.25)
                 {
-                    Paused = true;
+                    Paused = !Paused;
+                    Log.i("DEBUGG", "anything ");
                 }
+
                 buttonDelay = 0;
-                GameSystem.Instance.SetIsPaused(!GameSystem.Instance.GetIsPaused());
+                GameSystem.Instance.SetIsPaused(Paused);
             }
         }
-        else
-        {
-            Paused = false;
-        }
-
-    }
-    @Override
-    public void Render(Canvas _canvas){
-        // Basic Rendering
-        if(Paused == false)
-            _canvas.drawBitmap(scaledbmpP, xPos - scaledbmpP.getWidth() * 0.5f, yPos - scaledbmpP.getHeight() * 0.5f ,null);
-        else
-            _canvas.drawBitmap(scaledbmpUP, xPos - scaledbmpUP.getWidth() * 0.5f, yPos - scaledbmpUP.getHeight() * 0.5f ,null);
+//        else
+//            Paused = false;
     }
 
     @Override
-    public boolean IsInit(){
+    public void Render(Canvas _canvas) {
+        if (Paused == false)
+            _canvas.drawBitmap(scaledbmpP, xPos - scaledbmpP.getWidth() * 0.5f , yPos - scaledbmpP.getHeight() *0.5f, null );
+
+        else
+            _canvas.drawBitmap(scaledbmpUP, xPos - scaledbmpUP.getWidth() * 0.5f , yPos - scaledbmpUP.getHeight() *0.5f, null );
+    }
+
+    @Override
+    public boolean IsInit() {
         return isInit;
     }
 
     @Override
-    public int GetRenderLayer(){
-        return LayerConstants.UI_LAYER;
-    }
-    @Override
-    public void SetRenderLayer(int _newLayer){
-        return;
+    public int GetRenderLayer() {
+        return LayerConstants.PAUSEBUTTON_LAYER;
     }
 
     @Override
-    public EntityBase.ENTITY_TYPE GetEntityType(){
-        return EntityBase.ENTITY_TYPE.ENT_PAUSEBUTTON;
+    public void SetRenderLayer(int _newLayer) {
+
     }
 
+    @Override
+    public float GetPositionX() {
+        return 0;
+    }
+
+    @Override
+    public float GetPositionY() {
+        return 0;
+    }
+
+    @Override
+    public ENTITY_TYPE GetEntityType() {
+        return ENTITY_TYPE.ENT_PAUSE;
+    }
     public static PausebuttonEntity Create(){
-        PausebuttonEntity object = new PausebuttonEntity();
-        EntityManager.Instance.AddEntity(object, EntityBase.ENTITY_TYPE.ENT_JUMPBUTTON);
-        return object;
+        PausebuttonEntity result=new PausebuttonEntity();
+        EntityManager.Instance.AddEntity(result,ENTITY_TYPE.ENT_PAUSE);
+        return result;
     }
+
 }
