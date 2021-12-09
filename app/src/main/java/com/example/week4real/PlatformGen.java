@@ -13,9 +13,8 @@ public class PlatformGen{
     public int ScreenWidth, ScreenHeight;
     Platform newPlatform;
     float newPositionY;
-    float UpdatePositionY;
     boolean isValid = true;
-    Player player = null;
+    Smurf player = null;
     boolean isInit = false;
     private final float PLATFORM_HEIGHT = 200.f;
     private final float PLAYER_DISTANCE_SPAWN_LEVEL_PART = 1000.f;
@@ -108,7 +107,7 @@ public class PlatformGen{
         return isValid;
     }
 
-    public void setPlayer(Player player) {
+    public void setPlayer(Smurf player) {
         this.player = player;
     }
 }

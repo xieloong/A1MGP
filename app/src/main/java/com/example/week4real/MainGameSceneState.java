@@ -19,10 +19,7 @@ public class MainGameSceneState implements StateBase {
     @Override
     public void OnEnter(SurfaceView _view)
     {
-        RenderBackground.Create(); //Entity
-        PausebuttonEntity.Create();
         LevelManager.Instance.SetLevel(LevelManager.LevelNo.LEVEL_ONE);
-        Smurf.Create();
         // Example to include another Renderview for Pause Button
     }
 
@@ -42,7 +39,7 @@ public class MainGameSceneState implements StateBase {
     public void Update(float _dt) {
 
         EntityManager.Instance.Update(_dt);
-
+        LevelManager.Instance.Update();
         if (TouchManager.Instance.IsDown()) {
 
             //Example of touch on screen in the main game to trigger back to Main menu

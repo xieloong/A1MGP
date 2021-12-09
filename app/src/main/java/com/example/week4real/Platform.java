@@ -6,6 +6,8 @@ import android.graphics.Canvas;
 import android.util.DisplayMetrics;
 import android.view.SurfaceView;
 
+import androidx.annotation.NonNull;
+
 import java.util.Set;
 
 public class Platform implements EntityBase, Collidable{
@@ -16,6 +18,12 @@ public class Platform implements EntityBase, Collidable{
     private boolean isInit = false;
     private boolean hasTouched = false;
     public int ScreenWidth, ScreenHeight;
+
+    Platform()
+    {
+
+    }
+
     Platform(float xPosition, float yPosition){
         xPos = xPosition;
         yPos = yPosition;
@@ -70,6 +78,7 @@ public class Platform implements EntityBase, Collidable{
         return;
     }
 
+    @NonNull
     public static Platform Create(float xPosition, float yPosition){
         Platform object = new Platform(xPosition,yPosition);
         EntityManager.Instance.AddEntity(object,ENTITY_TYPE.ENT_PLATFORM);

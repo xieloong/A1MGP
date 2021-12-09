@@ -1,12 +1,13 @@
 package com.example.week4real;
 
 import android.graphics.Canvas;
+import android.util.DisplayMetrics;
 import android.view.SurfaceView;
 
 public class LevelManager {
 
     public final static LevelManager Instance = new LevelManager();
-
+    Smurf player;
     private SurfaceView view = null;
     LevelNo Level = LevelNo.LEVEL_NONE;
     boolean LEVEL_ONE_INITIALISED = false;
@@ -35,15 +36,14 @@ public class LevelManager {
         {
             case LEVEL_ONE:
                     StateManager.Instance.ChangeState("LevelOne"); // Default is like a loading page
-                    PlatformGen.Instance.InitialisePlatforms();
-                    PlatformGen.Instance.Update();
+
                 break;
             case LEVEL_TWO:
                 break;
             case LEVEL_THREE:
                 break;
             case LEVEL_NONE:
-                break;
+                return;
         }
         /*
         if (TouchManager.Instance.IsDown()) {

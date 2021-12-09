@@ -9,7 +9,7 @@ import android.view.SurfaceView;
 
 import java.util.Random;
 
-public class Smurf implements EntityBase {
+public class Smurf implements EntityBase , Collidable{
     private boolean isDone = false;
     private Bitmap bmp = null, scaledbmp = null;
 
@@ -160,5 +160,33 @@ public class Smurf implements EntityBase {
         Smurf result = new Smurf();
         EntityManager.Instance.AddEntity(result, ENTITY_TYPE.ENT_DEFAULT);
         return result;
+    }
+
+    @Override
+    public String GetType() {
+        return "PlayerEntity";
+    }
+
+    @Override
+    public float GetPosX() {
+        return xPos;
+    }
+
+    @Override
+    public float GetPosY() {
+        return yPos;
+    }
+
+    @Override
+    public float GetRadius() {
+        return bmp.getWidth();
+    }
+
+    @Override
+    public void OnHit(Collidable _other) {
+//        if(_other.GetType() != this.GetType()
+//                && _other.GetType() !=  "SmurfEntity") {  // Another entity
+//            SetIsDone(true);
+//        }
     }
 }

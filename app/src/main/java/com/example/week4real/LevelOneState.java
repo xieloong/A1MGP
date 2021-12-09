@@ -6,7 +6,7 @@ import android.view.SurfaceView;
 
 public class LevelOneState implements StateBase{
 
-    Player player;
+    Smurf player;
 
 
     @Override
@@ -21,8 +21,9 @@ public class LevelOneState implements StateBase{
         int ScreenWidth = metrics.widthPixels;
         int ScreenHeight = metrics.heightPixels;
         RenderBackground.Create(); //Entity
-        player = Player.Create(100,800);
+        player = Smurf.Create();
         PlatformGen.Instance.setPlayer(player);
+        PlatformGen.Instance.InitialisePlatforms();
         PausebuttonEntity.Create();
         RenderTextEntity.Create();
         EarthEntity.Create(ScreenWidth/2,20);
@@ -44,5 +45,6 @@ public class LevelOneState implements StateBase{
     @Override
     public void Update(float _dt) {
         EntityManager.Instance.Update(_dt);
+        PlatformGen.Instance.Update();
     }
 }
