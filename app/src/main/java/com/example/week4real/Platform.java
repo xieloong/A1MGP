@@ -19,6 +19,8 @@ public class Platform implements EntityBase, Collidable{
     private boolean hasTouched = false;
     public int ScreenWidth, ScreenHeight;
 
+    int Height, Width;
+
     Platform()
     {
 
@@ -43,6 +45,8 @@ public class Platform implements EntityBase, Collidable{
         DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
         ScreenWidth = metrics.widthPixels;
         ScreenHeight = metrics.heightPixels;
+        Width = bmp.getWidth();
+        Height = bmp.getHeight();
         isInit = true;
     }
     @Override
@@ -100,12 +104,22 @@ public class Platform implements EntityBase, Collidable{
 
     @Override
     public float GetPosX() {
-    return xPos;
-}
+        return xPos;
+    }
 
     @Override
     public float GetPosY() {
         return yPos;
+    }
+
+    @Override
+    public float GetBottom() {
+        return GetPosY() + Height;
+    }
+
+    @Override
+    public float GetRight() {
+        return GetPosX() + Width;
     }
 
 

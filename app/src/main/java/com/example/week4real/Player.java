@@ -18,6 +18,8 @@ public class Player implements EntityBase, Collidable{
     private boolean hasTouched = false; // To detect
     private float lifetime; // Life of the Player
 
+    int Height, Width;
+
     private Sprite playerSprite = null;
     Player(float xPosition, float yPosition){
         xPos = xPosition;
@@ -125,12 +127,22 @@ public class Player implements EntityBase, Collidable{
 
     @Override
     public float GetPosX() {
-        return xPos;
+        return xPos - (Width * 0.5f);
     }
 
     @Override
     public float GetPosY() {
-        return yPos;
+        return yPos - (Height * 0.5f);
+    }
+
+    @Override
+    public float GetBottom() {
+        return GetPosY() + Height;
+    }
+
+    @Override
+    public float GetRight() {
+        return GetPosX() + Width;
     }
 
 

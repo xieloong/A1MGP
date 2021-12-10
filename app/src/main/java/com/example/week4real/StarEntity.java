@@ -19,6 +19,9 @@ public class StarEntity implements EntityBase, Collidable{
     private float yPos = 0;
     private float screenHeight = 0;
     private float speed = 0;
+
+    int Width, Height;
+
     private boolean isDone = false;
     private boolean isInit = false;
 
@@ -111,12 +114,22 @@ public class StarEntity implements EntityBase, Collidable{
 
     @Override
     public float GetPosX() {
-        return xPos;
+        return xPos - (Width * 0.5f);
     }
 
     @Override
     public float GetPosY() {
-        return yPos;
+        return yPos - (Height * 0.5f);
+    }
+
+    @Override
+    public float GetBottom() {
+        return GetPosY() + Height;
+    }
+
+    @Override
+    public float GetRight() {
+        return GetPosX() + Width;
     }
 
     @Override

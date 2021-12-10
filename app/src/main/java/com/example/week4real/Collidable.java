@@ -7,8 +7,11 @@ public interface Collidable {
 
     float GetPosX();
     float GetPosY();
+    float GetBottom();
+    float GetRight();
     float GetRadius();
 
     void OnHit(Collidable _other);
+
 }
 

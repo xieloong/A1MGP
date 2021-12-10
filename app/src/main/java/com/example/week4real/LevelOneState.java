@@ -7,6 +7,7 @@ import android.view.SurfaceView;
 public class LevelOneState implements StateBase{
 
     Smurf player;
+
     EarthEntity earthEntity;
 
     @Override
@@ -23,9 +24,11 @@ public class LevelOneState implements StateBase{
         RenderBackground.Create(); //EntitY
         PlatformGen.Instance.InitialisePlatforms();
         player = Smurf.Create();
+        Enemy.Create();
         PlatformGen.Instance.setPlayer(player);
         PausebuttonEntity.Create();
         RenderTextEntity.Create();
+
         earthEntity = EarthEntity.Create(ScreenWidth/2 - 300,0);
         // Example to include another Renderview for Pause Button //test for push
     }

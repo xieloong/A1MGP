@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.SurfaceView;
 
 import java.util.Random;
@@ -26,6 +27,10 @@ public class Smurf implements EntityBase , Collidable{
 
     float lifetime;
 
+    int Width, Height;
+
+    float PrevXPos, PrevYPos;
+
     private Sprite spritesmurf = null;
 
 
@@ -44,24 +49,33 @@ public class Smurf implements EntityBase , Collidable{
 
     @Override
     public void Init(SurfaceView _view) {
-        bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.ship2_1);
-        bmp = ResourceManager.Instance.GetBitmap( R.drawable.ship2_1);
+        bmp = ResourceManager.Instance.GetBitmap( R.drawable.mainsprite);
 
         metrics = _view.getResources().getDisplayMetrics();
 
         ScreenHeight = metrics.heightPixels;
         ScreenWidth = metrics.widthPixels;
 
+        PrevXPos = xPos;
+        PrevYPos = yPos;
+
         // New to Week 8
         // Using Sprite animation class to load our sprite sheet
-        spritesmurf = new Sprite(ResourceManager.Instance.GetBitmap(R.drawable.mainsprite),1,6, 5 );
-
+        bmp = Bitmap.createScaledBitmap(bmp, (int)(ScreenWidth * 0.5), (int)(ScreenHeight * 0.25), false);
+        spritesmurf = new Sprite((bmp),1,6, 5 );
+        Width = spritesmurf.GetWidth();
+        Height = spritesmurf.GetHeight();
 
         // Define how we want the player to react or if it is enemy or obstacles, how it is going to appear as.
         // You should have this part!
 
         xPos = 0.1f * ScreenWidth;
         yPos = 0.7f * ScreenHeight;
+
+//        System.out.println("Player's x: " + GetPosX());
+//        System.out.println("Player's y: " + GetPosY());
+//        System.out.println("Player's right: " + GetRight());
+//        System.out.println("Player's bottom: " + GetBottom());
     }
 
     @Override
@@ -70,6 +84,9 @@ public class Smurf implements EntityBase , Collidable{
 
         if (GameSystem.Instance.GetIsPaused())
             return;
+
+        PrevXPos = xPos;
+        PrevYPos = yPos;
 
         spritesmurf.Update(_dt);
 
@@ -105,6 +122,11 @@ public class Smurf implements EntityBase , Collidable{
         if(yPos > 0.7f * ScreenHeight)
         {
             yPos = 0.7f * ScreenHeight;
+        }
+
+        if (xPos < -Width * 0.5)
+        {
+            Log.i(";", "YOU DEAD BRUH ");
         }
 //        if (TouchManager.Instance.HasTouch())  // Touch and drag
 //        {
@@ -150,7 +172,6 @@ public class Smurf implements EntityBase , Collidable{
     }
 
 
-
     @Override
     public ENTITY_TYPE GetEntityType() {
         return ENTITY_TYPE.ENT_DEFAULT;
@@ -164,17 +185,27 @@ public class Smurf implements EntityBase , Collidable{
 
     @Override
     public String GetType() {
-        return "PlayerEntity";
+        return "SmurfEntity";
     }
 
     @Override
     public float GetPosX() {
-        return xPos;
+        return xPos - (Width * 0.5f);
     }
 
     @Override
     public float GetPosY() {
-        return yPos;
+        return yPos - (Height * 0.5f);
+    }
+
+    @Override
+    public float GetBottom() {
+        return GetPosY() + Height;
+    }
+
+    @Override
+    public float GetRight() {
+        return GetPosX() + Width;
     }
 
     @Override
@@ -184,9 +215,25 @@ public class Smurf implements EntityBase , Collidable{
 
     @Override
     public void OnHit(Collidable _other) {
-//        if(_other.GetType() != this.GetType()
-//                && _other.GetType() !=  "SmurfEntity") {  // Another entity
-//            SetIsDone(true);
-//        }
+        if(_other.GetType() != this.GetType()
+                && _other.GetType() ==  "Platform")
+        {  // Another entity
+            Log.i("debugging", "it touched the platform");
+            if ((PrevYPos - Width * 0.5f) <= _other.GetBottom() && (PrevYPos + Width * 0.5f) >= _other.GetPosY())
+            {
+                xPos = _other.GetPosX() - Width * 0.5f;
+                return;
+            }
+            if (IsGoingUp)
+            {
+                yPos = _other.GetBottom() + Height / 2;
+            }
+            else
+            {
+                yPos = _other.GetPosY() - Height / 2;
+            }
+        }
+
+
     }
 }

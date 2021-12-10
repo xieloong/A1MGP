@@ -15,6 +15,15 @@
         android:layout_marginTop="198dp"
         android:layout_marginRight="303dp"></Switch>
 
+    <Switch
+        android:id="@+id/switch2"
+        android:layout_width="110dp"
+        android:layout_height="56dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="239dp"
+        android:layout_marginRight="302dp"></Switch>
+
     <Button
         android:id="@+id/btn_back"
         android:layout_width="150dp"
@@ -36,7 +45,19 @@
         android:layout_alignParentRight="true"
         android:layout_marginTop="209dp"
         android:layout_marginRight="332dp"
-        android:text="Toggle music: off"
+        android:text="Toggle BGM: off"
+        android:textColor="@color/cardview_light_background"
+        android:textSize="20sp"></TextView>
+
+    <TextView
+        android:id="@+id/text2"
+        android:layout_width="196dp"
+        android:layout_height="41dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="253dp"
+        android:layout_marginRight="332dp"
+        android:text="Toggle SFX: off"
         android:textColor="@color/cardview_light_background"
         android:textSize="20sp"></TextView>
 

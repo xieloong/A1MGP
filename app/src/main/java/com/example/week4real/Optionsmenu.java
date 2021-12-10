@@ -17,7 +17,10 @@ import androidx.appcompat.app.AppCompatActivity;
 public class Optionsmenu extends Activity implements OnClickListener, StateBase  {
 
     TextView textView;
+    TextView textView2;
+
     Switch aSwitch;
+    Switch aSwitch2;
 
     private Button btn_back;
 
@@ -30,17 +33,35 @@ public class Optionsmenu extends Activity implements OnClickListener, StateBase 
         btn_back.setOnClickListener(this);
 
         textView = findViewById(R.id.text);
+        textView2 = findViewById(R.id.text2);
+
         aSwitch = findViewById(R.id.switch1);
+        aSwitch2 = findViewById(R.id.switch2);
 
         aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(aSwitch.isChecked()) {
-                    textView.setText("Toggle music: on");
+                    textView.setText("Toggle BGM: on");
+
                 }
                 else
                 {
-                    textView.setText("Toggle music: off");
+                    textView.setText("Toggle BGM: off");
+                }
+            }
+        });
+
+        aSwitch2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(aSwitch2.isChecked()) {
+                    textView2.setText("Toggle SFX: on");
+
+                }
+                else
+                {
+                    textView2.setText("Toggle SFX: off");
                 }
             }
         });

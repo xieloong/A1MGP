@@ -11,6 +11,7 @@ public class Collision {
 
         float distSquared = xVec * xVec + yVec * yVec;
 
+
         float rSquared = radius1 + radius2;
         rSquared *= rSquared;
 
@@ -18,5 +19,10 @@ public class Collision {
             return false;
 
         return true;
+    }
+
+    public  static boolean AABB(float left,  float top, float right, float bottom, float left2,  float top2, float right2, float bottom2) {
+
+        return (left < right2 && right > left2 && top < bottom2 && bottom > top2);
     }
 }

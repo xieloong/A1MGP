@@ -79,7 +79,15 @@ public class EntityManager {
                     if (otherEntity instanceof Collidable) {
                         Collidable second = (Collidable) otherEntity;
 
-                        if (Collision.SphereToSphere(first.GetPosX(), first.GetPosY(), first.GetRadius(), second.GetPosX(), second.GetPosY(), second.GetRadius())) {
+//                        if (Collision.SphereToSphere(first.GetPosX(), first.GetPosY(), first.GetRadius(), second.GetPosX(), second.GetPosY(), second.GetRadius()))
+//                        {
+//                            first.OnHit(second);
+//                            second.OnHit(first);
+//                        }
+//                        if ((first.GetType() == "SmurfEntity" && second.GetType() == "EnemyEntity") || (first.GetType() == "EnemyEntity" && second.GetType() == "SmurfEntity"))
+//                        {
+                        if (Collision.AABB(first.GetPosX(), first.GetPosY(), first.GetRight(), first.GetBottom(), second.GetPosX(), second.GetPosY(), second.GetRight(), second.GetBottom()))
+                        {
                             first.OnHit(second);
                             second.OnHit(first);
                         }
