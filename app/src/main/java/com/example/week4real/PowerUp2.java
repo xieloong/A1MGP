@@ -113,7 +113,17 @@ public class PowerUp2 implements EntityBase, Collidable{
             return yPos;
         }
 
-        @Override
+    @Override
+    public float GetBottom() {
+        return 0;
+    }
+
+    @Override
+    public float GetRight() {
+        return 0;
+    }
+
+    @Override
         public float GetRadius() {
             return scaledbmp.getWidth();
         }
