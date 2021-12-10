@@ -52,7 +52,6 @@ public class Healthbar implements EntityBase{
 
 
 
-
     }
     @Override
     public void Render(Canvas _canvas){

@@ -179,14 +179,13 @@ public class Smurf implements EntityBase , Collidable{
 
     @Override
     public float GetRadius() {
-        return bmp.getWidth();
+        return spritesmurf.GetWidth();
     }
 
     @Override
     public void OnHit(Collidable _other) {
 //        if(_other.GetType() != this.GetType()
-//                && _other.GetType() !=  "SmurfEntity") {  // Another entity
-//            SetIsDone(true);
+//                && _other.GetType() ==  "Platform") {  // Another entity
 //        }
     }
 }

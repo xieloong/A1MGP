@@ -54,6 +54,8 @@ public class Player implements EntityBase, Collidable{
 
         if(GameSystem.Instance.GetIsPaused())
             return;
+
+        xPos -= _dt * 100;
         // Sprite Animation Update
         playerSprite.Update(_dt);
 
@@ -69,6 +71,8 @@ public class Player implements EntityBase, Collidable{
 
             }
         }
+
+
 //        if(TouchManager.Instance.HasTouch()){
 //            // Check Collision
 //            float imgRadius = bmp.getHeight() * 0.5f;

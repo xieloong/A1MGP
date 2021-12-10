@@ -18,7 +18,6 @@ public class Platform implements EntityBase, Collidable{
     private boolean isInit = false;
     private boolean hasTouched = false;
     public int ScreenWidth, ScreenHeight;
-
     Platform()
     {
 
@@ -121,8 +120,8 @@ public class Platform implements EntityBase, Collidable{
     @Override
     public void OnHit(Collidable _other) {
 //        if(_other.GetType() != this.GetType()
-//                && _other.GetType() !=  "SmurfEntity") {  // Another entity
-//            SetIsDone(true);
+//                && _other.GetType() == "PlayerEntity") {  // Another entity
+//
 //        }
     }
 }
