@@ -27,7 +27,7 @@ public class UpdateThread extends Thread {
         GameSystem.Instance.Init(_view);
         ResourceManager.Instance.Init(_view);
         LevelManager.Instance.Init(_view);
-        PlatformGen.Instance.Init(_view);
+        LevelGen.Instance.Init(_view);
     }
 
     public boolean IsRunning()

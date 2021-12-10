@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.util.DisplayMetrics;
 import android.view.SurfaceView;
 
 public class RenderTextEntity implements EntityBase{
@@ -22,6 +23,9 @@ public class RenderTextEntity implements EntityBase{
         long lastFPSTime = 0;
         float fps;
 
+        float points = 0;
+        int ScreenWidth,ScreenHeight;
+        int displayScore;
         Typeface myfont;
 
         @Override
@@ -40,7 +44,14 @@ public class RenderTextEntity implements EntityBase{
             // Week 8 Use my own fonts
             myfont = Typeface.createFromAsset(_view.getContext().getAssets(), "fonts/Gemcut.otf");
            // myfont = Typeface.create(Typeface.DEFAULT, Typeface.NORMAL);
+
+            DisplayMetrics metrics= _view.getResources().getDisplayMetrics();
+            ScreenHeight = metrics.heightPixels;
+            ScreenWidth = metrics.widthPixels;
+
+
             isInit = true;
+
 
         }
 
@@ -63,6 +74,9 @@ public class RenderTextEntity implements EntityBase{
             }
 
 
+            // Points According to Time
+            points += 0.5f * _dt;
+
         }
 
         @Override
@@ -76,6 +90,13 @@ public class RenderTextEntity implements EntityBase{
             paint.setTextSize(70);
             _canvas.drawText("FPS: " + fps, 30, 80, paint);
 
+            Paint score = new Paint();
+            score.setARGB(255, 0,0,0);
+            //paint.setStrokeWidth(200);
+            score.setTypeface(myfont);
+            score.setTextSize(70);
+            displayScore = Math.round(points);
+            _canvas.drawText("Score: " + displayScore, 1400, 80, score);
 
         }
 
@@ -104,6 +125,11 @@ public class RenderTextEntity implements EntityBase{
             RenderTextEntity result = new RenderTextEntity();
             EntityManager.Instance.AddEntity(result, ENTITY_TYPE.ENT_TEXT);
             return result;
+        }
+
+        public int GetPoints()
+        {
+            return displayScore;
         }
 
 }

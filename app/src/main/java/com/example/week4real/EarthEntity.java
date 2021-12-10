@@ -15,6 +15,9 @@ public class EarthEntity implements EntityBase{
     public static final float MAX_HEALTH_POINTS = 100.0f;
     private Healthbar healthbar;
     private float healthPoints;
+    private float rate = 1.0f;
+    private float duration = 0.0f;
+
     public EarthEntity(float xPos, float yPos){
         this.xPos = xPos;
         this.yPos = yPos;
@@ -39,7 +42,26 @@ public class EarthEntity implements EntityBase{
     }
     @Override
     public void Update(float _dt) {
-        healthPoints -= 1.0f * _dt;
+
+        if(GameSystem.Instance.GetIsPaused())
+            return;
+
+        healthPoints -= rate * _dt;
+
+        if(healthPoints >= MAX_HEALTH_POINTS)
+        {
+            healthPoints = MAX_HEALTH_POINTS;
+        }
+        if(duration > 0)
+        {
+            rate = 0.5f;
+            duration -= 1.0f * _dt;
+        }
+        if(duration <= 0.0)
+        {
+            duration = 0.0f;
+            rate = 1.0f;
+        }
     }
     @Override
     public void Render(Canvas _canvas){
@@ -80,5 +102,10 @@ public class EarthEntity implements EntityBase{
     public void SetHealthPoints(float healthPoints)
     {
         this.healthPoints = healthPoints;
+    }
+
+    public void Shield(float duration)
+    {
+        this.duration += duration;
     }
 }

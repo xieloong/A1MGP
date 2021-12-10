@@ -36,7 +36,7 @@ public class JumpButtonEntity implements EntityBase{
     @Override
     public void Update(float _dt){
         // Update Player when Button is Pressed using TouchManager
-
+        xPos -= 10*_dt;
     }
     @Override
     public void Render(Canvas _canvas){
