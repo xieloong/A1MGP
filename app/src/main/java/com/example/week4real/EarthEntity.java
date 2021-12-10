@@ -12,9 +12,9 @@ public class EarthEntity implements EntityBase{
     public float xPos,yPos;
     private boolean isInit = false;
     private boolean hasTouched = false;
-    public static final int MAX_HEALTH_POINTS = 10;
+    public static final float MAX_HEALTH_POINTS = 100.0f;
     private Healthbar healthbar;
-    private int healthPoints;
+    private float healthPoints;
     public EarthEntity(float xPos, float yPos){
         this.xPos = xPos;
         this.yPos = yPos;
@@ -39,7 +39,7 @@ public class EarthEntity implements EntityBase{
     }
     @Override
     public void Update(float _dt) {
-
+        healthPoints -= 1.0f * _dt;
     }
     @Override
     public void Render(Canvas _canvas){
@@ -73,7 +73,12 @@ public class EarthEntity implements EntityBase{
     }
 
 
-    public int GetHealthPoints() {
+    public float GetHealthPoints() {
         return healthPoints;
+    }
+
+    public void SetHealthPoints(float healthPoints)
+    {
+        this.healthPoints = healthPoints;
     }
 }

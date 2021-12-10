@@ -18,16 +18,20 @@ public class Healthbar implements EntityBase{
     private boolean hasTouched = false;
     private EarthEntity earthEntity;
     private int width,height,margin;
-    private Paint borderPaint;
+    private Paint borderPaint,healthPaint;
     public Healthbar( EarthEntity earthEntity){
         this.earthEntity = earthEntity;
-        this.width = 100;
-        this.height = 150;
+        this.width = 400;
+        this.height = 120;
         this.margin = 2;
+
         this.borderPaint = new Paint();
         borderPaint.setColor(Color.GRAY);
         borderPaint.setStyle(Paint.Style.FILL);
 
+        this.healthPaint = new Paint();
+        healthPaint.setColor(Color.GREEN);
+        healthPaint.setStyle(Paint.Style.FILL);
     }
 
 
@@ -56,18 +60,29 @@ public class Healthbar implements EntityBase{
         {
             float x = earthEntity.xPos;
             float y = earthEntity.yPos;
-            float distanceToEarth = 200.f;
-            float healthPointPercentage = (float)earthEntity.GetHealthPoints() / earthEntity.MAX_HEALTH_POINTS;
+            float distanceToEarth = 190.f;
+            float healthPointPercentage = earthEntity.GetHealthPoints() / earthEntity.MAX_HEALTH_POINTS;
 
 
             // Draw Border
-            float borderleft,borderTop,borderRight,borderBottom;
-            borderleft = x + distanceToEarth;
-            borderRight = borderleft + width;
-            borderBottom = y + 10;
-            borderTop = y - 10;
+            float borderLeft,borderTop,borderRight,borderBottom;
+            borderLeft = x + distanceToEarth;
+            borderRight = borderLeft + width;
+            borderTop = 40; // 40 + 120 for FAT , // 60 + 100 for SMALL
+            borderBottom = height;
 
-            _canvas.drawRect(borderleft,borderTop,borderRight,borderBottom,borderPaint);
+
+            _canvas.drawRect(borderLeft,borderTop,borderRight,borderBottom,borderPaint);
+
+            float healthLeft, healthTop, healthRight, healthBottom, healthWidth,healthHeight;
+            healthWidth = width - 2*margin;
+            healthHeight = height - 2*margin;
+            healthLeft = borderLeft + 2*margin;
+            healthRight = healthLeft + healthWidth*healthPointPercentage;
+            healthBottom = borderBottom - margin;
+            healthTop = borderTop + margin;
+            _canvas.drawRect(healthLeft,healthTop,healthRight,healthBottom,healthPaint);
+
         }
         // 1/12/2021  Fix HealthBar Position and Continues HealthBar
 

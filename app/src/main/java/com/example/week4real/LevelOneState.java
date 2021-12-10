@@ -26,7 +26,7 @@ public class LevelOneState implements StateBase{
         PlatformGen.Instance.setPlayer(player);
         PausebuttonEntity.Create();
         RenderTextEntity.Create();
-        earthEntity = EarthEntity.Create(ScreenWidth/2,20);
+        earthEntity = EarthEntity.Create(ScreenWidth/2 - 300,0);
         // Example to include another Renderview for Pause Button //test for push
     }
 
