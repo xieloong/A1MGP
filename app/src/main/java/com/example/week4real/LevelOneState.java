@@ -7,7 +7,7 @@ import android.view.SurfaceView;
 public class LevelOneState implements StateBase{
 
     Smurf player;
-
+    EarthEntity earthEntity;
 
     @Override
     public String GetName() {
@@ -20,13 +20,13 @@ public class LevelOneState implements StateBase{
         DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
         int ScreenWidth = metrics.widthPixels;
         int ScreenHeight = metrics.heightPixels;
-        RenderBackground.Create(); //Entity
+        RenderBackground.Create(); //EntitY
+        PlatformGen.Instance.InitialisePlatforms();
         player = Smurf.Create();
         PlatformGen.Instance.setPlayer(player);
-        PlatformGen.Instance.InitialisePlatforms();
         PausebuttonEntity.Create();
         RenderTextEntity.Create();
-        EarthEntity.Create(ScreenWidth/2,20);
+        earthEntity = EarthEntity.Create(ScreenWidth/2,20);
         // Example to include another Renderview for Pause Button //test for push
     }
 
@@ -44,7 +44,10 @@ public class LevelOneState implements StateBase{
 
     @Override
     public void Update(float _dt) {
-        EntityManager.Instance.Update(_dt);
-        PlatformGen.Instance.Update();
+        if(earthEntity.GetHealthPoints() > 0)
+        {
+            PlatformGen.Instance.Update();
+            EntityManager.Instance.Update(_dt);
+        }
     }
 }

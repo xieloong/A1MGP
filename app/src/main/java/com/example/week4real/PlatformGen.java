@@ -11,7 +11,7 @@ public class PlatformGen{
     public final static PlatformGen Instance = new PlatformGen();
     private SurfaceView view = null;
     public int ScreenWidth, ScreenHeight;
-    Platform newPlatform;
+    Platform newPlatform = null;
     float newPositionY;
     boolean isValid = true;
     Smurf player = null;
@@ -26,13 +26,14 @@ public class PlatformGen{
 
 
     private PlatformGen() {
-        newPlatform = Platform.Create(200,400);
+
     }
 
     public void InitialisePlatforms()
     {
         if(!isInit)
         {
+            newPlatform = Platform.Create(200,400);
             int startingSpawnLevelParts = 5;
             for(int i = 0; i < startingSpawnLevelParts; i++){
                 CreatePlatform();
@@ -62,6 +63,9 @@ public class PlatformGen{
                 // Spawn Another Level Part
                 CreatePlatform();
             }
+
+//            Log.i("PlayerPosX",Float.toString(player.GetPosX()));
+//            Log.i("LastPlatformPosX",Float.toString(newPlatform.GetPosX()));
         }
     }
 
@@ -83,7 +87,6 @@ public class PlatformGen{
                 break;
             default:
                 break;
-
         }
 
         if(!isValid(newPositionY))
@@ -91,11 +94,9 @@ public class PlatformGen{
             CreatePlatform();
         }
         else{
-
             newPlatform = Platform.Create(newPlatform.GetPosX() + 800,newPositionY);
 //            Log.i("newPositionY: ", Float.toString(UpdatePositionY));
         }
-
     }
     public boolean isValid(float newPositionY) {
         if (newPositionY >= ScreenHeight - 200 || newPositionY <= 100) {

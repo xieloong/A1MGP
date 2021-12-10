@@ -30,13 +30,15 @@ public class LevelManager {
         view = _view;
     }
 
+    // Used in Part2
+
     public void Update()
     {
         switch(Level)
         {
             case LEVEL_ONE:
-                    StateManager.Instance.ChangeState("LevelOne"); // Default is like a loading page
-
+//                    StateManager.Instance.ChangeState("LevelOne");
+                    // Default is like a loading page
                 break;
             case LEVEL_TWO:
                 break;
@@ -53,6 +55,7 @@ public class LevelManager {
         }
         */
     }
+
     public void SetLevel(LevelNo level){
         Level = level;
     }

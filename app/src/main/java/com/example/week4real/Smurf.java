@@ -141,7 +141,7 @@ public class Smurf implements EntityBase , Collidable{
 
     @Override
     public int GetRenderLayer() {
-        return LayerConstants.BACKGROUND_LAYER;
+        return LayerConstants.PLAYER_LAYER;
     }
 
     @Override

@@ -60,7 +60,7 @@ public class Mainmenu extends Activity implements OnClickListener, StateBase {  
         {
             // intent --> to set to another class which another page or screen that we are launching.
             intent.setClass(this, GamePage.class);
-                 LevelManager.Instance.SetLevel(LevelManager.LevelNo.LEVEL_ONE);
+            StateManager.Instance.ChangeState("LevelOne");
         }
 
         else if (v == btn_back)
@@ -72,6 +72,7 @@ public class Mainmenu extends Activity implements OnClickListener, StateBase {  
             intent.setClass(this, Optionsmenu.class);
         }
         startActivity(intent);
+
 
     }
 

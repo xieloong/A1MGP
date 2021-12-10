@@ -64,10 +64,10 @@ public class Healthbar implements EntityBase{
             float borderleft,borderTop,borderRight,borderBottom;
             borderleft = x + distanceToEarth;
             borderRight = borderleft + width;
-//            borderBottom =
-//            borderTop =
+            borderBottom = y + 10;
+            borderTop = y - 10;
 
-//            _canvas.drawRect(borderleft,borderTop,borderRight,borderBottom,borderPaint);
+            _canvas.drawRect(borderleft,borderTop,borderRight,borderBottom,borderPaint);
         }
         // 1/12/2021  Fix HealthBar Position and Continues HealthBar
 

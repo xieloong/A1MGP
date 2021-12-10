@@ -55,7 +55,7 @@ public class UpdateThread extends Thread {
         // This is to calculate delta time (more precise)
         long prevTime = System.nanoTime();
 
-        StateManager.Instance.Start("MainGame");  // To edit to whichever state to start with.
+        StateManager.Instance.Start("LevelOne");  // To edit to whichever state to start with.
 
         // Change Splashpage to be a state -->Then this field here will be "Splashstate"
 
@@ -98,7 +98,6 @@ public class UpdateThread extends Thread {
                 isRunning = false;
                 Terminate();
             }
-
             // End of Loop
         }
     }
