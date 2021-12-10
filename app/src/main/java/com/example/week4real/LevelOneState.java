@@ -20,10 +20,10 @@ public class LevelOneState implements StateBase{
         DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
         int ScreenWidth = metrics.widthPixels;
         int ScreenHeight = metrics.heightPixels;
-        RenderBackground.Create(); //Entity
+        RenderBackground.Create(); //EntitY
+        PlatformGen.Instance.InitialisePlatforms();
         player = Smurf.Create();
         PlatformGen.Instance.setPlayer(player);
-        PlatformGen.Instance.InitialisePlatforms();
         PausebuttonEntity.Create();
         RenderTextEntity.Create();
         EarthEntity.Create(ScreenWidth/2,20);

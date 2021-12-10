@@ -35,8 +35,8 @@ public class LevelManager {
         switch(Level)
         {
             case LEVEL_ONE:
-                    StateManager.Instance.ChangeState("LevelOne"); // Default is like a loading page
-
+                    StateManager.Instance.ChangeState("LevelOne");
+                    // Default is like a loading page
                 break;
             case LEVEL_TWO:
                 break;
@@ -53,6 +53,7 @@ public class LevelManager {
         }
         */
     }
+
     public void SetLevel(LevelNo level){
         Level = level;
     }

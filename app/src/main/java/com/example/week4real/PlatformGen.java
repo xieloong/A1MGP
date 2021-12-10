@@ -11,13 +11,13 @@ public class PlatformGen{
     public final static PlatformGen Instance = new PlatformGen();
     private SurfaceView view = null;
     public int ScreenWidth, ScreenHeight;
-    Platform newPlatform;
+    Platform newPlatform = null;
     float newPositionY;
     boolean isValid = true;
     Smurf player = null;
     boolean isInit = false;
     private final float PLATFORM_HEIGHT = 200.f;
-    private final float PLAYER_DISTANCE_SPAWN_LEVEL_PART = 1000.f;
+    private final float PLAYER_DISTANCE_SPAWN_LEVEL_PART = 200.f;
     private enum PlatformPart{
         PLATFORM_PART_ONE,
         PLATFORM_PART_TWO,
@@ -26,13 +26,14 @@ public class PlatformGen{
 
 
     private PlatformGen() {
-        newPlatform = Platform.Create(200,400);
+
     }
 
     public void InitialisePlatforms()
     {
         if(!isInit)
         {
+            newPlatform = Platform.Create(200,400);
             int startingSpawnLevelParts = 5;
             for(int i = 0; i < startingSpawnLevelParts; i++){
                 CreatePlatform();
@@ -62,6 +63,9 @@ public class PlatformGen{
                 // Spawn Another Level Part
                 CreatePlatform();
             }
+
+            Log.i("PlayerPosX",Float.toString(player.GetPosX()));
+            Log.i("LastPlatformPosX",Float.toString(newPlatform.GetPosX()));
         }
     }
 
