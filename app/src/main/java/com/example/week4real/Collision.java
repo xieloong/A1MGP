@@ -25,4 +25,14 @@ public class Collision {
 
         return (left < right2 && right > left2 && top < bottom2 && bottom > top2);
     }
+    public static boolean BoxToBox(float x1, float y1, float radius1, float x2, float y2, float radius2)
+    {
+        // Collision X-Axis
+        // Min x = xPos , Max x = x + bmp.getWidth
+
+
+        // Collision Y-Axis
+        // Min y = yPos , Max y = y + bmp.getHeight
+       return true;
+    }
 }

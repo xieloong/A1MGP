@@ -91,6 +91,11 @@ public class EntityManager {
                             first.OnHit(second);
                             second.OnHit(first);
                         }
+//                        else if(Collision.BoxToBox(first.GetPosX(), first.GetPosY(), first.GetRadius(), second.GetPosX(), second.GetPosY(), second.GetRadius()))
+//                        {
+//                            first.OnHit(second);
+//                            second.OnHit(first);
+//                        }
                     }
                 }
             }

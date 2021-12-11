@@ -25,6 +25,7 @@ public class LevelOneState implements StateBase{
         LevelGen.Instance.setEarth(earthEntity);
         LevelGen.Instance.InitialisePlatforms();
         player = Smurf.Create();
+        Enemy.Create();
         LevelGen.Instance.setPlayer(player);
         PausebuttonEntity.Create();
         RenderTextEntity.Create();
