@@ -18,7 +18,7 @@ public class PowerUp1 implements EntityBase, Collidable{
     private boolean isInit = false;
     EarthEntity earthEntity = null;
     int ScreenWidth, ScreenHeight;
-
+    int Width, Height;
     PowerUp1(float xPosition, float yPosition, EarthEntity earthEntity)
     {
         xPos = xPosition;
@@ -47,7 +47,8 @@ public class PowerUp1 implements EntityBase, Collidable{
         ScreenWidth = metrics.widthPixels;
 
         scaledbmp = Bitmap.createScaledBitmap(bmp,ScreenWidth/20,ScreenHeight/20,true);
-
+        Width = bmp.getWidth();
+        Height = bmp.getHeight();
 
         isInit = true;
     }
@@ -116,23 +117,23 @@ public class PowerUp1 implements EntityBase, Collidable{
 
     @Override
     public float GetBottom() {
-        return 0;
+        return yPos + Height;
     }
 
     @Override
     public float GetRight() {
-        return 0;
+        return xPos + Width;
     }
 
     @Override
     public float GetRadius() {
-        return scaledbmp.getWidth();
+        return (scaledbmp.getWidth() * 0.5f);
     }
 
     @Override
     public void OnHit(Collidable _other) {
         if(_other.GetType() != this.GetType()
-                && _other.GetType() == "PlayerEntity") {  // Another entity
+                && _other.GetType() == "SmurfEntity") {  // Another entity
             earthEntity.SetHealthPoints(earthEntity.GetHealthPoints() + 20);
             SetIsDone(true);
         }

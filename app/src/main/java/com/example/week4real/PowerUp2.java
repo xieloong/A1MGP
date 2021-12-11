@@ -17,7 +17,7 @@ public class PowerUp2 implements EntityBase, Collidable{
         private boolean isInit = false;
         EarthEntity earthEntity = null;
         int ScreenWidth, ScreenHeight;
-
+    int Width, Height;
         PowerUp2(float xPosition, float yPosition, EarthEntity earthEntity)
         {
             xPos = xPosition;
@@ -46,7 +46,8 @@ public class PowerUp2 implements EntityBase, Collidable{
             ScreenWidth = metrics.widthPixels;
 
             scaledbmp = Bitmap.createScaledBitmap(bmp,ScreenWidth/20,ScreenHeight/20,true);
-
+            Width = bmp.getWidth();
+            Height = bmp.getHeight();
 
             isInit = true;
         }
@@ -103,35 +104,35 @@ public class PowerUp2 implements EntityBase, Collidable{
             return "TickPowerUp";
         }
 
-        @Override
-        public float GetPosX() {
-            return xPos;
-        }
+    @Override
+    public float GetPosX() {
+        return xPos;
+    }
 
-        @Override
-        public float GetPosY() {
-            return yPos;
-        }
+    @Override
+    public float GetPosY() {
+        return yPos;
+    }
 
     @Override
     public float GetBottom() {
-        return 0;
+        return yPos + Height;
     }
 
     @Override
     public float GetRight() {
-        return 0;
+        return xPos + Width;
     }
 
     @Override
         public float GetRadius() {
-            return scaledbmp.getWidth();
+            return (scaledbmp.getWidth() * 0.5f);
         }
 
         @Override
         public void OnHit(Collidable _other) {
             if(_other.GetType() != this.GetType()
-                    && _other.GetType() == "PlayerEntity") {  // Another entity
+                    && _other.GetType() == "SmurfEntity") {  // Another entity
                 earthEntity.Shield(5.0f);
                 SetIsDone(true);
             }
