@@ -65,7 +65,8 @@ public class Mainmenu extends Activity implements OnClickListener, StateBase {  
 
         else if (v == btn_back)
         {
-            intent.setClass(this, Mainmenu.class);
+            finish();
+            System.exit(0);
         }
         else if (v == btn_option)
         {
