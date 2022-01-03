@@ -35,6 +35,14 @@ public class Enemy implements EntityBase , Collidable{
     private boolean hasTouched = false; // New to Week 8
 
     //check if anything to do with entity (use for pause)
+
+    Enemy(float xPosition, float yPosition)
+    {
+        xPos = xPosition;
+        yPos = yPosition;
+    }
+
+
     @Override
     public boolean IsDone() {
         return isDone;
@@ -64,9 +72,6 @@ public class Enemy implements EntityBase , Collidable{
         // Define how we want the player to react or if it is enemy or obstacles, how it is going to appear as.
         // You should have this part!
 
-        xPos = 0.9f * ScreenWidth;
-        yPos = 0.2f * ScreenHeight;
-
 
     }
 
@@ -81,19 +86,24 @@ public class Enemy implements EntityBase , Collidable{
 
         xPos -= _dt * 100; // How fast you want to move the screen
 
-        if (xPos <  -ScreenWidth){
-            xPos = 0;
-        }
-
-        if(xPos<-(int)(Width * 0.8)) //wrapping
-        {
-            xPos = ScreenWidth;
-        }
+//        if (xPos <  -ScreenWidth){
+//            xPos = 0;
+//        }
+//
+//        if(xPos<-(int)(Width * 0.8)) //wrapping
+//        {
+//            xPos = ScreenWidth;
+//        }
 
 //        lifetime -= _dt;
 //        if (lifetime < 0.0f) {
 //            SetIsDone(true);   // <--- This part here or this code, meant when time is up, kill the items.
 //        }
+
+        if(xPos < -ScreenWidth)
+        {
+            SetIsDone(true);
+        }
     }
     @Override
     public void Render(Canvas _canvas) {
@@ -133,8 +143,8 @@ public class Enemy implements EntityBase , Collidable{
         return ENTITY_TYPE.ENT_DEFAULT;
     }
 
-    public static Enemy Create() {
-        Enemy result = new Enemy();
+    public static Enemy Create(float xPosition, float yPosition) {
+        Enemy result = new Enemy(xPosition,yPosition);
         EntityManager.Instance.AddEntity(result, ENTITY_TYPE.ENT_DEFAULT);
         return result;
     }

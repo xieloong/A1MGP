@@ -4,21 +4,27 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.SurfaceView;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 
-public class LevelGen{
+public class
+LevelGen{
     public final static LevelGen Instance = new LevelGen();
     private SurfaceView view = null;
     public int ScreenWidth, ScreenHeight;
     Platform newPlatform = null;
-    float newPositionY;
-    boolean isValid = true;
+    float newPositionX;
+    Boolean isValid = true;
     Smurf player = null;
     EarthEntity earthEntity = null;
     boolean isInit = false;
     private final float PLATFORM_HEIGHT = 200.f;
     private final float PLAYER_DISTANCE_SPAWN_LEVEL_PART = 1000.f;
+
+    private ArrayList<Boolean> platformlist = new ArrayList<Boolean>();
+    private ArrayList<Boolean> enemyPowerupList = new ArrayList<Boolean>();
+
 
 
     private LevelGen() {
@@ -29,10 +35,11 @@ public class LevelGen{
     {
         if(!isInit)
         {
-            newPlatform = Platform.Create(200,400);
+            newPlatform = Platform.Create(400,200);
+            newPositionX = newPlatform.GetPosX();
             int startingSpawnLevelParts = 5;
             for(int i = 0; i < startingSpawnLevelParts; i++){
-                CreatePlatform();
+                CreateLevelPart();
             }
             isInit = true;
         }
@@ -47,17 +54,19 @@ public class LevelGen{
         ScreenHeight = metrics.heightPixels;
     }
 
-    public void Update()
+    public void Update(float _dt)
     {
         if(GameSystem.Instance.GetIsPaused())
             return;
 
         if(player != null && earthEntity != null)
         {
-            if((newPlatform.GetPosX() - player.GetPosX()) < PLAYER_DISTANCE_SPAWN_LEVEL_PART)
+            newPositionX -= _dt * 200;
+
+            if((newPositionX - player.defaultxPos) < PLAYER_DISTANCE_SPAWN_LEVEL_PART)
             {
                 // Spawn Another Level Part
-                CreatePlatform();
+                CreateLevelPart();
             }
 
 //            Log.i("PlayerPosX",Float.toString(player.GetPosX()));
@@ -65,63 +74,129 @@ public class LevelGen{
         }
     }
 
-    public void CreatePlatform() {
-        // Generate Random Number in Range 0 to 2
-        Random ranGem = new Random();
-        int rand_int = ranGem.nextInt(3-0)+0;
+    public void CreateLevelPart() {
 
+        newPositionX = newPositionX + 800;
+        // Fill Platform List
+        FillPlatforms();
 
-        switch (rand_int) {
-            case 0:
-                newPositionY = newPlatform.GetPosY() - PLATFORM_HEIGHT;
-                break;
-            case 1:
-                newPositionY = newPlatform.GetPosY();
-                break;
-            case 2:
-                newPositionY = newPlatform.GetPosY() + PLATFORM_HEIGHT;
-                break;
-            default:
-                break;
-        }
+        // Create Platforms
+        CreatePlatforms(newPositionX);
 
-        if(!isValid(newPositionY))
+        // Fill Enemy + Power-up List
+        FillEnemyPowerup();
+
+        // Create Enemy + Power-Up
+        CreatePowerUpOrEnemy(newPositionX);
+    }
+
+    private void FillPlatforms()
+    {
+        // Clear the List
+        platformlist.clear();
+        // Fill List With false or true
+        for(int index = 0; index < 3; index++)
         {
-            CreatePlatform();
-        }
-        else{
-            float newPositionX = newPlatform.GetPosX() + 800;
-            newPlatform = Platform.Create(newPositionX,newPositionY);
-            int rand_PowerUp = GetRandomPowerUp();
-            switch(rand_PowerUp)
+            Random ranGem = new Random();
+            int rand_int = ranGem.nextInt(2-0)+0;
+            if(rand_int == 1)
             {
-                case 0:
-                    // Don't Spawn Power-up
-                    break;
-                case 1:
-                    // Spawn Power-Up One
-                    float PowerUpPosX = GetPowerUpPosX(newPositionX);
-                    float PowerUpPosY = GetPowerUpPosY(newPositionY);
-                    PowerUp1.Create(PowerUpPosX,PowerUpPosY,earthEntity);
-                    Log.i("PowerUpPosX",Float.toString(PowerUpPosX));
-                    Log.i("PowerUpPosY",Float.toString(PowerUpPosY));
-                    break;
-                case 2:
-                    // Spawn Power-Up Two
-                    PowerUpPosX = (float) GetPowerUpPosX(newPositionX);
-                    PowerUpPosY = (float) GetPowerUpPosY(newPositionY);
-                    PowerUp2.Create(PowerUpPosX,PowerUpPosY,earthEntity);
-                    break;
-                case 3:
-                    // Spawn Power-Up Three
-                    PowerUpPosX = (float) GetPowerUpPosX(newPositionX);
-                    PowerUpPosY = (float) GetPowerUpPosY(newPositionY);
-                    PowerUp3.Create(PowerUpPosX,PowerUpPosY,earthEntity);
-                    break;
+                platformlist.add(true);
             }
-//            Log.i("newPositionY: ", Float.toString(UpdatePositionY));
+            else
+            {
+                platformlist.add(false);
+            }
         }
     }
+    private void CreatePlatforms(float positionX)
+    {
+       // Check Platform List
+        for(int index = 0; index < platformlist.size(); index++)
+        {
+            if(platformlist.get(index) == true)
+            {
+                // Create Platform based on Index
+                Platform.Create(positionX,200 + index * PLATFORM_HEIGHT);
+            }
+        }
+    }
+
+    private void FillEnemyPowerup()
+    {
+        // Clear the List of power-ups and enemies
+        enemyPowerupList.clear();
+        // Fill List With false or true
+        for(int index = 0; index < 3; index++)
+        {
+            Random ranGem = new Random();
+            int rand_int = ranGem.nextInt(2-0)+0;
+            if(rand_int == 1)
+            {
+                enemyPowerupList.add(true);
+            }
+            else
+            {
+                enemyPowerupList.add(false);
+            }
+        }
+    }
+
+    private void CreatePowerUpOrEnemy(float positionX)
+    {
+        // Check enemy + powerup List
+        for(int index = 0; index < enemyPowerupList.size(); index++)
+        {
+            if(enemyPowerupList.get(index) == true)
+            {
+                // Choose which to spawn; power-up or enemy
+                Random ranGem = new Random();
+                int rand_int = ranGem.nextInt(2-0)+0;
+                Log.i("RandomGen",Float.toString(rand_int));
+                if(rand_int == 0)
+                {
+                    // Spawn Power-up
+                    // Choose which power-up to spawn
+                    int rand_PowerUp = GetRandomPowerUp();
+                    switch(rand_PowerUp)
+                    {
+                        case 0:
+                            // Spawn Power-Up One
+                            float PowerUpPosX = GetPowerUpPosX(positionX);
+                            float PowerUpPosY = GetPowerUpPosY(200.f + (float) index * PLATFORM_HEIGHT) ;
+                            PowerUp1.Create(PowerUpPosX,PowerUpPosY,earthEntity);
+                            Log.i("PowerUpPosX",Float.toString(PowerUpPosX));
+                            Log.i("PowerUpPosY",Float.toString(PowerUpPosY));
+                            break;
+                        case 1:
+                            // Spawn Power-Up Two
+                            PowerUpPosX = GetPowerUpPosX(positionX);
+                            PowerUpPosY = GetPowerUpPosY(200.f + (float) index * PLATFORM_HEIGHT) ;
+                            PowerUp2.Create(PowerUpPosX,PowerUpPosY,earthEntity);
+                            break;
+                        case 2:
+                            // Spawn Power-Up Three
+                            PowerUpPosX = GetPowerUpPosX(positionX);
+                            PowerUpPosY = GetPowerUpPosY(200.f + (float) index * PLATFORM_HEIGHT) ;
+                            PowerUp3.Create(PowerUpPosX,PowerUpPosY,earthEntity);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                else if (rand_int == 1)
+                {
+                    // Spawn Enemy
+                    Log.i("EnemyIndex",Integer.toString((index)));
+                    float enemyPosition = 200.f + (float)index * PLATFORM_HEIGHT;
+                    Log.i("EnemyPosition",Float.toString((enemyPosition)));
+                    Enemy.Create(positionX,enemyPosition);
+                }
+            }
+
+        }
+    }
+
     public boolean isValid(float newPositionY) {
         if (newPositionY >= ScreenHeight - 200 || newPositionY <= 300) {
             isValid = false;
@@ -144,9 +219,9 @@ public class LevelGen{
     public int GetRandomPowerUp()
     {
         // return int;
-        // Generate Random Number in Range 0 to 3
+        // Generate Random Number in Range 0 to 2
         Random ranGem = new Random();
-        int rand_int = ranGem.nextInt(4-0)+0;
+        int rand_int = ranGem.nextInt(3-0)+0;
         return rand_int;
     }
 
@@ -160,8 +235,9 @@ public class LevelGen{
     }
     public float GetPowerUpPosY(float newPlatformY)
     {
+        Log.i("DebugPositonY", Float.toString((newPlatformY)));
         Random ranGem = new Random();
-        float minY = (int) (newPlatformY - 200);
+        float minY = (int) (newPlatformY - 100);
         float maxY= (int) (newPlatformY - 50);
         float rand_float = minY + ranGem.nextFloat() *  (maxY - minY);
         return rand_float;

@@ -17,7 +17,8 @@ public class Smurf implements EntityBase , Collidable{
     boolean IsGoingUp = false;
 
     int ScreenWidth, ScreenHeight;
-    private float xPos, yPos, offset;
+    public float xPos, yPos, offset;
+    public float defaultxPos;
 
     int spriteCounter = 0;
 
@@ -49,6 +50,7 @@ public class Smurf implements EntityBase , Collidable{
 
     @Override
     public void Init(SurfaceView _view) {
+        defaultxPos = xPos;
         bmp = ResourceManager.Instance.GetBitmap( R.drawable.mainsprite);
 
         metrics = _view.getResources().getDisplayMetrics();
@@ -70,6 +72,7 @@ public class Smurf implements EntityBase , Collidable{
         // You should have this part!
 
         xPos = 0.1f * ScreenWidth;
+
         yPos = 0.7f * ScreenHeight;
 
 //        System.out.println("Player's x: " + GetPosX());
@@ -85,6 +88,8 @@ public class Smurf implements EntityBase , Collidable{
         if (GameSystem.Instance.GetIsPaused())
             return;
 
+
+        defaultxPos += _dt * 100;
         PrevXPos = xPos;
         PrevYPos = yPos;
 
@@ -124,10 +129,22 @@ public class Smurf implements EntityBase , Collidable{
             yPos = 0.7f * ScreenHeight;
         }
 
+        if(xPos <= ScreenWidth * 0.25)
+        {
+            xPos += _dt * 10;
+        }
+        else
+        {
+            xPos = (float) (ScreenWidth * 0.25);
+        }
+
+
         if (xPos < -Width * 0.5)
         {
             Log.i(";", "YOU DEAD BRUH ");
         }
+
+
 //        if (TouchManager.Instance.HasTouch())  // Touch and drag
 //        {
 //            // Check collision with the smurf sprite
