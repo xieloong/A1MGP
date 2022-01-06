@@ -25,7 +25,6 @@ public class LevelOneState implements StateBase{
         LevelGen.Instance.setEarth(earthEntity);
         LevelGen.Instance.InitialisePlatforms();
         player = Smurf.Create();
-        Enemy.Create();
         LevelGen.Instance.setPlayer(player);
         PausebuttonEntity.Create();
         RenderTextEntity.Create();
@@ -48,7 +47,7 @@ public class LevelOneState implements StateBase{
     public void Update(float _dt) {
         if(earthEntity.GetHealthPoints() > 0)
         {
-            LevelGen.Instance.Update();
+            LevelGen.Instance.Update(_dt);
             EntityManager.Instance.Update(_dt);
         }
     }
