@@ -49,7 +49,7 @@ public class Smurf implements EntityBase , Collidable{
 
     @Override
     public void Init(SurfaceView _view) {
-        bmp = ResourceManager.Instance.GetBitmap( R.drawable.mainsprite);
+        bmp = ResourceManager.Instance.GetBitmap( R.drawable.thesprite);
 
         metrics = _view.getResources().getDisplayMetrics();
 
