@@ -1,12 +1,18 @@
 package com.example.week4real;
 
+import android.app.Activity;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.util.DisplayMetrics;
 import android.view.SurfaceView;
+import android.widget.Toast;
 
-public class PowerUp1 implements EntityBase, Collidable{
+
+
+
+public class PowerUp1 implements EntityBase, Collidable {
     private Bitmap bmp = null;
     private Bitmap scaledbmp =null;
     private float xPos = 0;
@@ -47,8 +53,8 @@ public class PowerUp1 implements EntityBase, Collidable{
         ScreenWidth = metrics.widthPixels;
 
         scaledbmp = Bitmap.createScaledBitmap(bmp,ScreenWidth/20,ScreenHeight/20,true);
-        Width = bmp.getWidth();
-        Height = bmp.getHeight();
+        Width = scaledbmp.getWidth();
+        Height = scaledbmp.getHeight();
 
         isInit = true;
     }
@@ -107,23 +113,24 @@ public class PowerUp1 implements EntityBase, Collidable{
 
     @Override
     public float GetPosX() {
-        return xPos;
+        return xPos - (Width * 0.5f);
     }
 
     @Override
     public float GetPosY() {
-        return yPos;
+        return yPos - (Height * 0.5f);
     }
 
     @Override
     public float GetBottom() {
-        return yPos + Height;
+        return GetPosY() + Height;
     }
 
     @Override
     public float GetRight() {
-        return xPos + Width;
+        return GetPosX() + Width;
     }
+
 
     @Override
     public float GetRadius() {
@@ -135,6 +142,10 @@ public class PowerUp1 implements EntityBase, Collidable{
         if(_other.GetType() != this.GetType()
                 && _other.GetType() == "SmurfEntity") {  // Another entity
             earthEntity.SetHealthPoints(earthEntity.GetHealthPoints() + 20);
+
+//            CharSequence text = "AirConPowerUp Acquired";
+//            Toast toast = Toast.makeText(getActivity(), text, Toast.LENGTH_SHORT);
+//            toast.show();
             SetIsDone(true);
         }
     }

@@ -8,8 +8,9 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.Window;
 import android.view.WindowManager;
+import androidx.appcompat.app.AppCompatActivity;
 
-public class GamePage extends Activity {
+public class GamePage extends AppCompatActivity {
 
     public static GamePage Instance = null;
 
@@ -18,7 +19,7 @@ public class GamePage extends Activity {
         super.onCreate(savedInstanceState);
 
         //To make fullscreen
-        requestWindowFeature(Window.FEATURE_NO_TITLE); // Hide titlebar
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE); // Hide titlebar
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);  // Hide topbar
 
         Instance = this;

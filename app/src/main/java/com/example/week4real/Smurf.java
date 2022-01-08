@@ -94,7 +94,7 @@ public class Smurf implements EntityBase , Collidable{
         PrevYPos = yPos;
 
         spritesmurf.Update(_dt);
-
+        Log.i("PlayerHeight",Integer.toString(Height));
 //        lifetime -= _dt;
 //        if (lifetime < 0.0f) {
 //            SetIsDone(true);   // <--- This part here or this code, meant when time is up, kill the items.
@@ -129,18 +129,22 @@ public class Smurf implements EntityBase , Collidable{
             yPos = 0.7f * ScreenHeight;
         }
 
-        if(xPos <= ScreenWidth * 0.25)
+        if(xPos <= ScreenWidth * 0.50 && xPos > 0)
         {
             xPos += _dt * 10;
         }
-        else
-        {
+        if(xPos >= ScreenWidth * 0.25)
             xPos = (float) (ScreenWidth * 0.25);
-        }
-
 
         if (xPos < -Width * 0.5)
         {
+            if(GameOverAlertDialog.isShown)
+                return;
+
+            GameSystem.Instance.SetIsPaused(true);
+            GameOverAlertDialog newGameOver = new GameOverAlertDialog();
+            newGameOver.show(GamePage.Instance.getSupportFragmentManager(), "Gameover!");
+
             Log.i(";", "YOU DEAD BRUH ");
         }
 

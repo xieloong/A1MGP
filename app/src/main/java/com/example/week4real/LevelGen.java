@@ -19,7 +19,8 @@ LevelGen{
     Smurf player = null;
     EarthEntity earthEntity = null;
     boolean isInit = false;
-    private final float PLATFORM_HEIGHT = 200.f;
+    private final float PLATFORM_HEIGHT = 306.f;
+    private float PowerUp_HEIGHT;
     private final float PLAYER_DISTANCE_SPAWN_LEVEL_PART = 1000.f;
 
     private ArrayList<Boolean> platformlist = new ArrayList<Boolean>();
@@ -35,7 +36,7 @@ LevelGen{
     {
         if(!isInit)
         {
-            newPlatform = Platform.Create(400,200);
+            newPlatform = Platform.Create(400,270);
             newPositionX = newPlatform.GetPosX();
             int startingSpawnLevelParts = 5;
             for(int i = 0; i < startingSpawnLevelParts; i++){
@@ -52,6 +53,7 @@ LevelGen{
         DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
         ScreenWidth = metrics.widthPixels;
         ScreenHeight = metrics.heightPixels;
+        PowerUp_HEIGHT = ScreenHeight / 3;
     }
 
     public void Update(float _dt)
@@ -95,7 +97,7 @@ LevelGen{
         // Clear the List
         platformlist.clear();
         // Fill List With false or true
-        for(int index = 0; index < 3; index++)
+        for(int index = 0; index < 2; index++)
         {
             Random ranGem = new Random();
             int rand_int = ranGem.nextInt(2-0)+0;
@@ -117,7 +119,7 @@ LevelGen{
             if(platformlist.get(index) == true)
             {
                 // Create Platform based on Index
-                Platform.Create(positionX,200 + index * PLATFORM_HEIGHT);
+                Platform.Create(positionX,270 + index * PLATFORM_HEIGHT);
             }
         }
     }
@@ -163,7 +165,7 @@ LevelGen{
                         case 0:
                             // Spawn Power-Up One
                             float PowerUpPosX = GetPowerUpPosX(positionX);
-                            float PowerUpPosY = GetPowerUpPosY(200.f + (float) index * PLATFORM_HEIGHT) ;
+                            float PowerUpPosY = GetPowerUpPosY(ScreenHeight/6 + (float) index * PowerUp_HEIGHT) ;
                             PowerUp1.Create(PowerUpPosX,PowerUpPosY,earthEntity);
                             Log.i("PowerUpPosX",Float.toString(PowerUpPosX));
                             Log.i("PowerUpPosY",Float.toString(PowerUpPosY));
@@ -171,13 +173,13 @@ LevelGen{
                         case 1:
                             // Spawn Power-Up Two
                             PowerUpPosX = GetPowerUpPosX(positionX);
-                            PowerUpPosY = GetPowerUpPosY(200.f + (float) index * PLATFORM_HEIGHT) ;
+                            PowerUpPosY = GetPowerUpPosY(ScreenHeight/6 + (float) index * PowerUp_HEIGHT) ;
                             PowerUp2.Create(PowerUpPosX,PowerUpPosY,earthEntity);
                             break;
                         case 2:
                             // Spawn Power-Up Three
                             PowerUpPosX = GetPowerUpPosX(positionX);
-                            PowerUpPosY = GetPowerUpPosY(200.f + (float) index * PLATFORM_HEIGHT) ;
+                            PowerUpPosY = GetPowerUpPosY(ScreenHeight/6 + (float) index * PowerUp_HEIGHT) ;
                             PowerUp3.Create(PowerUpPosX,PowerUpPosY,earthEntity);
                             break;
                         default:
@@ -188,9 +190,9 @@ LevelGen{
                 {
                     // Spawn Enemy
                     Log.i("EnemyIndex",Integer.toString((index)));
-                    float enemyPosition = 200.f + (float)index * PLATFORM_HEIGHT;
+                    float enemyPosition = ScreenHeight/6 + (float)index * PowerUp_HEIGHT;
                     Log.i("EnemyPosition",Float.toString((enemyPosition)));
-                    Enemy.Create(positionX,enemyPosition);
+                    Enemy.Create(positionX,enemyPosition,earthEntity);
                 }
             }
 
@@ -237,10 +239,15 @@ LevelGen{
     {
         Log.i("DebugPositonY", Float.toString((newPlatformY)));
         Random ranGem = new Random();
-        float minY = (int) (newPlatformY - 100);
-        float maxY= (int) (newPlatformY - 50);
+        float minY = (int) (newPlatformY - 50);
+        float maxY= (int) (newPlatformY);
         float rand_float = minY + ranGem.nextFloat() *  (maxY - minY);
         return rand_float;
+    }
+
+    public void ResetLevelGen()
+    {
+        isInit = false;
     }
 }
 

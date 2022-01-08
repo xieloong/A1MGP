@@ -3,6 +3,7 @@ package com.example.week4real;
 import android.graphics.Canvas;
 import android.util.DisplayMetrics;
 import android.view.SurfaceView;
+import androidx.fragment.app.DialogFragment;
 
 public class LevelOneState implements StateBase{
 
@@ -49,6 +50,15 @@ public class LevelOneState implements StateBase{
         {
             LevelGen.Instance.Update(_dt);
             EntityManager.Instance.Update(_dt);
+        }
+        else
+        {
+            if(GameOverAlertDialog.isShown)
+                return;
+            GameSystem.Instance.SetIsPaused(true);
+            GameOverAlertDialog newGameOver = new GameOverAlertDialog();
+            newGameOver.show(GamePage.Instance.getSupportFragmentManager(), "Gameover!");
+
         }
     }
 }

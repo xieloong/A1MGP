@@ -29,17 +29,18 @@ public class Enemy implements EntityBase , Collidable{
     DisplayMetrics metrics;
 
     float lifetime;
-
+    EarthEntity earthEntity = null;
     private Sprite enemysmurf = null;
 
     private boolean hasTouched = false; // New to Week 8
 
     //check if anything to do with entity (use for pause)
 
-    Enemy(float xPosition, float yPosition)
+    Enemy(float xPosition, float yPosition,EarthEntity earthEntity)
     {
         xPos = xPosition;
         yPos = yPosition;
+        this.earthEntity = earthEntity;
     }
 
 
@@ -71,7 +72,10 @@ public class Enemy implements EntityBase , Collidable{
 
         // Define how we want the player to react or if it is enemy or obstacles, how it is going to appear as.
         // You should have this part!
-
+        if(xPos < -ScreenWidth)
+        {
+            SetIsDone(true);
+        }
 
     }
 
@@ -143,8 +147,8 @@ public class Enemy implements EntityBase , Collidable{
         return ENTITY_TYPE.ENT_DEFAULT;
     }
 
-    public static Enemy Create(float xPosition, float yPosition) {
-        Enemy result = new Enemy(xPosition,yPosition);
+    public static Enemy Create(float xPosition, float yPosition, EarthEntity earthEntity) {
+        Enemy result = new Enemy(xPosition,yPosition, earthEntity);
         EntityManager.Instance.AddEntity(result, ENTITY_TYPE.ENT_DEFAULT);
         return result;
     }
@@ -184,6 +188,8 @@ public class Enemy implements EntityBase , Collidable{
         if(_other.GetType() != this.GetType()
                 && _other.GetType() ==  "SmurfEntity")
         {  // Another entity
+
+            earthEntity.SetHealthPoints(earthEntity.GetHealthPoints() - 20);
             System.out.println("Enemy's x: " + GetPosX());
             System.out.println("Enemy's y: " + GetPosY());
             System.out.println("Enemy's right: " + GetRight());
