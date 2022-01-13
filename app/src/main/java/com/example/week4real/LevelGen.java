@@ -78,7 +78,7 @@ LevelGen{
 
     public void CreateLevelPart() {
 
-        newPositionX = newPositionX + 800;
+        newPositionX = newPositionX + 1000;
         // Fill Platform List
         FillPlatforms();
 
@@ -164,22 +164,22 @@ LevelGen{
                     {
                         case 0:
                             // Spawn Power-Up One
-                            float PowerUpPosX = GetPowerUpPosX(positionX);
-                            float PowerUpPosY = GetPowerUpPosY(ScreenHeight/6 + (float) index * PowerUp_HEIGHT) ;
+                            float PowerUpPosX = GetRandPosX(positionX);
+                            float PowerUpPosY = GetRandPosY(ScreenHeight/6 + (float) index * PowerUp_HEIGHT) ;
                             PowerUp1.Create(PowerUpPosX,PowerUpPosY,earthEntity);
                             Log.i("PowerUpPosX",Float.toString(PowerUpPosX));
                             Log.i("PowerUpPosY",Float.toString(PowerUpPosY));
                             break;
                         case 1:
                             // Spawn Power-Up Two
-                            PowerUpPosX = GetPowerUpPosX(positionX);
-                            PowerUpPosY = GetPowerUpPosY(ScreenHeight/6 + (float) index * PowerUp_HEIGHT) ;
+                            PowerUpPosX = GetRandPosX(positionX);
+                            PowerUpPosY = GetRandPosY(ScreenHeight/6 + (float) index * PowerUp_HEIGHT) ;
                             PowerUp2.Create(PowerUpPosX,PowerUpPosY,earthEntity);
                             break;
                         case 2:
                             // Spawn Power-Up Three
-                            PowerUpPosX = GetPowerUpPosX(positionX);
-                            PowerUpPosY = GetPowerUpPosY(ScreenHeight/6 + (float) index * PowerUp_HEIGHT) ;
+                            PowerUpPosX = GetRandPosX(positionX);
+                            PowerUpPosY = GetRandPosY(ScreenHeight/6 + (float) index * PowerUp_HEIGHT) ;
                             PowerUp3.Create(PowerUpPosX,PowerUpPosY,earthEntity);
                             break;
                         default:
@@ -190,9 +190,10 @@ LevelGen{
                 {
                     // Spawn Enemy
                     Log.i("EnemyIndex",Integer.toString((index)));
-                    float enemyPosition = ScreenHeight/6 + (float)index * PowerUp_HEIGHT;
-                    Log.i("EnemyPosition",Float.toString((enemyPosition)));
-                    Enemy.Create(positionX,enemyPosition,earthEntity);
+                    float enemyPositionX = GetRandPosX(positionX);
+                    float enemyPositionY = GetRandPosY(ScreenHeight/6 + (float)index * PowerUp_HEIGHT);
+                    Log.i("EnemyPosition",Float.toString((enemyPositionY)));
+                    Enemy.Create(enemyPositionX,enemyPositionY,earthEntity);
                 }
             }
 
@@ -227,7 +228,7 @@ LevelGen{
         return rand_int;
     }
 
-    public float GetPowerUpPosX(float newPlatformX)
+    public float GetRandPosX(float newPlatformX)
     {
         Random ranGem = new Random();
         float minX = (int) (newPlatformX - 100);
@@ -235,12 +236,12 @@ LevelGen{
         float rand_float = minX + ranGem.nextFloat() *  (maxX - minX);
         return rand_float;
     }
-    public float GetPowerUpPosY(float newPlatformY)
+    public float GetRandPosY(float newPlatformY)
     {
         Log.i("DebugPositonY", Float.toString((newPlatformY)));
         Random ranGem = new Random();
-        float minY = (int) (newPlatformY - 50);
-        float maxY= (int) (newPlatformY);
+        float minY = (int) (newPlatformY - 80);
+        float maxY= (int) (newPlatformY - 40);
         float rand_float = minY + ranGem.nextFloat() *  (maxY - minY);
         return rand_float;
     }

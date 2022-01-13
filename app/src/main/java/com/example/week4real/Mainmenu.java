@@ -19,6 +19,7 @@ public class Mainmenu extends Activity implements OnClickListener, StateBase {  
     private Button btn_start;
     private Button btn_back;
     private Button btn_option;
+    private Button btn_leaderboard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +43,12 @@ public class Mainmenu extends Activity implements OnClickListener, StateBase {  
         btn_option = (Button)findViewById(R.id.btn_option);
         btn_option.setOnClickListener(this); //Set Listener to this button --> Option Button
 
-		  StateManager.Instance.AddState(new Mainmenu());
+        btn_leaderboard = (Button)findViewById(R.id.btn_leaderboard);
+        btn_leaderboard.setOnClickListener(this);
+
+        StateManager.Instance.AddState(new Mainmenu());
         StateManager.Instance.AddState(new Optionsmenu());
+        StateManager.Instance.AddState(new Leaderboard());
     }
 
     @Override
@@ -72,6 +77,11 @@ public class Mainmenu extends Activity implements OnClickListener, StateBase {  
         {
             intent.setClass(this, Optionsmenu.class);
         }
+        else if(v == btn_leaderboard)
+        {
+            intent.setClass(this, Leaderboard.class);
+        }
+
         startActivity(intent);
 
 

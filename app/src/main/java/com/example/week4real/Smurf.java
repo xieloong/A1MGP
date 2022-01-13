@@ -138,12 +138,7 @@ public class Smurf implements EntityBase , Collidable{
 
         if (xPos < -Width * 0.5)
         {
-            if(GameOverAlertDialog.isShown)
-                return;
-
-            GameSystem.Instance.SetIsPaused(true);
-            GameOverAlertDialog newGameOver = new GameOverAlertDialog();
-            newGameOver.show(GamePage.Instance.getSupportFragmentManager(), "Gameover!");
+           isDone = true;
 
             Log.i(";", "YOU DEAD BRUH ");
         }
