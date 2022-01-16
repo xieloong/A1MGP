@@ -34,9 +34,6 @@ public class Leaderboard extends Activity implements OnClickListener, StateBase{
         btn_back = (Button)findViewById(R.id.btn_back);
         btn_back.setOnClickListener(this);
 
-        btn_share = (Button)findViewById(R.id.btn_sharescore);
-        btn_share.setOnClickListener(this);
-
         playerText = findViewById(R.id.text_playername);
         scoreText = findViewById(R.id.text_score);
 
