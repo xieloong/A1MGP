@@ -13,7 +13,7 @@ import java.util.Set;
 
 public class Platform implements EntityBase, Collidable{
 
-    private Bitmap bmp = null;
+    private Bitmap bmp,scaledbmp = null;
     private boolean isDone = false;
     private float xPos,yPos;
     private boolean isInit = false;
@@ -46,8 +46,9 @@ public class Platform implements EntityBase, Collidable{
         DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
         ScreenWidth = metrics.widthPixels;
         ScreenHeight = metrics.heightPixels;
-        Width = bmp.getWidth();
-        Height = bmp.getHeight();
+        scaledbmp = Bitmap.createScaledBitmap(bmp,ScreenWidth/5,ScreenHeight/30,true);
+        Width = scaledbmp.getWidth();
+        Height = scaledbmp.getHeight();
         isInit = true;
     }
     @Override
@@ -57,7 +58,7 @@ public class Platform implements EntityBase, Collidable{
             return;
 
         xPos -= _dt * 100;
-
+        Log.i("PlatformHeight", Integer.toString(Height));
         // Delete Platform outside of screen
         if(xPos < -ScreenWidth)
         {
@@ -67,7 +68,7 @@ public class Platform implements EntityBase, Collidable{
     @Override
     public void Render(Canvas _canvas){
         // Basic Rendering
-        _canvas.drawBitmap(bmp, xPos, yPos ,null);
+        _canvas.drawBitmap(scaledbmp, xPos, yPos ,null);
         return;
     }
     @Override
@@ -126,7 +127,7 @@ public class Platform implements EntityBase, Collidable{
 
     @Override
     public float GetRadius() {
-        return bmp.getWidth();
+        return scaledbmp.getWidth();
     }
     @Override
     public ENTITY_TYPE GetEntityType(){

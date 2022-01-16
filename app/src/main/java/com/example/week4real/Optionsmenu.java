@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
@@ -27,6 +29,10 @@ public class Optionsmenu extends Activity implements OnClickListener, StateBase 
     @Override
     protected  void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //To make fullscreen
+        requestWindowFeature(Window.FEATURE_NO_TITLE); // Hide titlebar
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);  // Hide topbar
         setContentView(R.layout.optionmenu);
 
         btn_back = (Button)findViewById(R.id.btn_back);
