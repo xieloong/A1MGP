@@ -30,6 +30,7 @@ public class LevelOneState implements StateBase{
         LevelGen.Instance.setPlayer(player);
         PausebuttonEntity.Create();
        renderTextEntity = RenderTextEntity.Create();
+       AudioManager.Instance.PlayeAudio(R.raw.bgmusic,2.0f);
         // Example to include another Renderview for Pause Button //test for push
     }
 

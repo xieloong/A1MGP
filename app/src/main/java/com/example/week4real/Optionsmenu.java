@@ -54,6 +54,7 @@ public class Optionsmenu extends Activity implements OnClickListener, StateBase 
                 else
                 {
                     textView.setText("Toggle BGM: off");
+                    AudioManager.Instance.StopAudio(R.raw.bgmusic);
                 }
             }
         });

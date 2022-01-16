@@ -13,6 +13,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_marginTop="198dp"
+        android:checked="true"
         android:layout_marginRight="303dp"></Switch>
 
     <Switch
@@ -22,6 +23,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_marginTop="239dp"
+        android:checked="true"
         android:layout_marginRight="302dp"></Switch>
 
     <Button
@@ -45,7 +47,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginTop="209dp"
         android:layout_marginRight="332dp"
-        android:text="Toggle BGM: off"
+        android:text="Toggle BGM: on"
         android:textColor="@color/cardview_light_background"
         android:textSize="20sp"></TextView>
 
@@ -57,7 +59,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginTop="253dp"
         android:layout_marginRight="332dp"
-        android:text="Toggle SFX: off"
+        android:text="Toggle SFX: on"
         android:textColor="@color/cardview_light_background"
         android:textSize="20sp"></TextView>
 
