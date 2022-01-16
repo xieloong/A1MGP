@@ -59,12 +59,7 @@ public class Leaderboard extends Activity implements OnClickListener, StateBase{
     public void onClick(View v) {
         Intent intent = new Intent();
 
-        if (v == btn_share)
-        {
-            // intent --> to set to another class which another page or screen that we are launching.
-            intent.setClass(this, scorepage.class);
-        }
-        else if (v == btn_back)
+        if (v == btn_back)
         {
             intent.setClass(this, Mainmenu.class);
         }

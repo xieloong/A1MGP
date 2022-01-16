@@ -29,18 +29,7 @@
         android:textColor="#bdfcf2"
         android:textSize="20sp"></TextView>
 
-    <Button
-        android:id="@+id/btn_sharescore"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="320dp"
-        android:layout_marginEnd="398dp"
-        android:layout_marginRight="408dp"
-        android:background="@drawable/button"
-        android:text="Share Your Score!"
-        android:textColor="#bdfcf2"
-        android:textSize="18sp" />
+
 
     <Button
         android:id="@+id/btn_back"
