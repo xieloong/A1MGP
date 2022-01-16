@@ -15,7 +15,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginTop="21dp"
         android:layout_marginRight="41dp"
-        android:textColor="#bdfcf2"
+        android:textColor="#E91E63"
         android:textSize="20sp"></TextView>
 
     <TextView
@@ -26,7 +26,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginTop="21dp"
         android:layout_marginRight="291dp"
-        android:textColor="#bdfcf2"
+        android:textColor="#E91E63"
         android:textSize="20sp"></TextView>
 
 
@@ -41,7 +41,7 @@
         android:layout_marginRight="99dp"
         android:background="@drawable/button"
         android:text="Back"
-        android:textColor="#bdfcf2"
+        android:textColor="#E91E63"
         android:textSize="18sp" />
 
 
