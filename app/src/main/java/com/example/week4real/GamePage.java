@@ -13,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 public class GamePage extends AppCompatActivity {
 
     public static GamePage Instance = null;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,5 +38,12 @@ public class GamePage extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public void onBackPressed()
+    {
+            LevelGen.Instance.ResetLevelGen();
+            StateManager.Instance.ChangeState("Mainmenu");
+            finish();
+    }
 }
 
