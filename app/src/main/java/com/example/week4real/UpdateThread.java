@@ -28,6 +28,7 @@ public class UpdateThread extends Thread {
         ResourceManager.Instance.Init(_view);
         LevelManager.Instance.Init(_view);
         LevelGen.Instance.Init(_view);
+        AudioManager.Instance.Init(_view);
     }
 
     public boolean IsRunning()
