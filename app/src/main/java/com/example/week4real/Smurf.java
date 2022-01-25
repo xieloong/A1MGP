@@ -1,5 +1,6 @@
 package com.example.week4real;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -7,10 +8,14 @@ import android.graphics.Matrix;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.SurfaceView;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 
 import java.util.Random;
 
-public class Smurf implements EntityBase , Collidable{
+public class Smurf implements EntityBase , Collidable, SensorEventListener{
     private boolean isDone = false;
     private Bitmap bmp = null, scaledbmp = null;
 
@@ -33,6 +38,10 @@ public class Smurf implements EntityBase , Collidable{
     float PrevXPos, PrevYPos;
 
     private Sprite spritesmurf = null;
+
+    SensorManager sensor;
+    private float[] values = {0,0,0};
+    private long lastTime = System.currentTimeMillis();
 
 
     private boolean hasTouched = false; // New to Week 8
@@ -60,6 +69,9 @@ public class Smurf implements EntityBase , Collidable{
 
         PrevXPos = xPos;
         PrevYPos = yPos;
+
+        sensor = (SensorManager) _view.getContext().getSystemService(Context.SENSOR_SERVICE);
+        sensor.registerListener((SensorEventListener) this, sensor.getSensorList(Sensor.TYPE_ACCELEROMETER).get(0), SensorManager.SENSOR_DELAY_NORMAL);
 
         // New to Week 8
         // Using Sprite animation class to load our sprite sheet
@@ -112,11 +124,11 @@ public class Smurf implements EntityBase , Collidable{
 
         if (IsGoingUp)
         {
-            yPos -= 300 * _dt;
+            yPos -= 600 * _dt;
         }
         else
         {
-            yPos += 300 * _dt;
+            yPos += 600 * _dt;
         }
 
         if (yPos < spritesmurf.GetHeight() / 2)
@@ -143,6 +155,10 @@ public class Smurf implements EntityBase , Collidable{
             Log.i(";", "YOU DEAD BRUH ");
         }
 
+
+        System.out.println("print out something:" + values[0]);
+
+        yPos += (values[0] - 9.8) * 2;
 
 //        if (TouchManager.Instance.HasTouch())  // Touch and drag
 //        {
@@ -249,7 +265,15 @@ public class Smurf implements EntityBase , Collidable{
                 yPos = _other.GetPosY() - Height / 2;
             }
         }
+    }
 
-
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+// Do something here if sensor accuracy changes.
+    }
+    @Override
+    public void onSensorChanged(SensorEvent SenseEvent) {
+        values = SenseEvent.values;
+        lastTime = System.currentTimeMillis();
     }
 }

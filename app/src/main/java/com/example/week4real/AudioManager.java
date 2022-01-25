@@ -57,6 +57,14 @@ public class AudioManager {
         audioMap.put(_id, result);
         return result;
     }
+
+    public boolean IsRunning(int _id) {
+        if (!audioMap.containsKey(_id))
+            return false;
+
+        MediaPlayer aPlayer = audioMap.get(_id);
+        return aPlayer.isPlaying();
+    }
 }
 
 
