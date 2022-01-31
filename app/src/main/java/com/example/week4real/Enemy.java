@@ -7,6 +7,9 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.util.DisplayMetrics;
 import android.view.SurfaceView;
+import android.os.Build;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 
 import java.util.Random;
 
@@ -33,6 +36,8 @@ public class Enemy implements EntityBase , Collidable{
     private Sprite enemysmurf = null;
 
     private boolean hasTouched = false; // New to Week 8
+
+    public Vibrator _vibrator;
 
     //check if anything to do with entity (use for pause)
 
@@ -77,6 +82,25 @@ public class Enemy implements EntityBase , Collidable{
             SetIsDone(true);
         }
 
+        _vibrator = (Vibrator) _view.getContext().getSystemService(_view.getContext().VIBRATOR_SERVICE);
+    }
+
+    public void startVibrate()
+    {
+        if (Build.VERSION.SDK_INT >= 26)
+        {
+            _vibrator.vibrate(VibrationEffect.createOneShot(150,10));
+        }
+        else
+        {
+            long pattern[] = {0,50,0};
+            _vibrator.vibrate(pattern, -1);
+        }
+    }
+
+    public void stopVibrate()
+    {
+        _vibrator.cancel();
     }
 
     @Override
@@ -190,6 +214,7 @@ public class Enemy implements EntityBase , Collidable{
         {  // Another entity
 
             earthEntity.SetHealthPoints(earthEntity.GetHealthPoints() - 20);
+            startVibrate();
             System.out.println("Enemy's x: " + GetPosX());
             System.out.println("Enemy's y: " + GetPosY());
             System.out.println("Enemy's right: " + GetRight());
